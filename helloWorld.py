@@ -58,7 +58,7 @@ class Chatbot:
 
 
     def chatInteractive(self):
-        sysSaid = '输入编号启动相应的问题\n姜彦孜最棒了!姜彦孜最美了！\n'+ '[1]启动helloWorld\n[2]启动钟表问题'
+        sysSaid = '姜彦孜最棒了!姜彦孜最美了！\n输入编号启动相应的问题\n[1]启动helloWorld\n[2]启动钟表问题'
         print('{}{}'.format(self.SENTENCES_PREFIX[0],sysSaid))
 
         while True:
