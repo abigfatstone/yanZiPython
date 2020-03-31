@@ -33,7 +33,7 @@ class Chatbot:
             return "错误的小时格式"
         if sMinute < 0 or sMinute>60:
             return "错误的分钟格式"   
-        if sMinute < 0 or sMinute>60:
+        if sSecond < 0 or sSecond>60:
             return "错误的秒针格式"    
 
         angleSecond = sSecond * 360.0 / 60
