@@ -24,12 +24,26 @@ class Chatbot:
 
     def timeRun(self,inTime):
 
+        dTimeDetail = inTime.split(":")
+        sHour = int(dTimeDetail[0])
+        sMinute = int(dTimeDetail[1])
+        sSecond = int(dTimeDetail[2])
+        # 检查输入的数值
+        if sHour < 0 or sHour>12:
+            return "错误的小时格式"
+        if sMinute < 0 or sMinute>60:
+            return "错误的分钟格式"   
+        if sMinute < 0 or sMinute>60:
+            return "错误的秒针格式"    
+
+        angleSecond = sSecond * 360.0 / 60
+        angleMinute = sMinute * (360.0 / 60) + sSecond / 10.0
+        angleHour = sHour * 30.0  + sMinute * (30.0 / 60) + sSecond * (30.0 /(60 * 60))
     	self.callbackKey = 'firstCall'
-    	return "debug time_run:{}".format(inTime)
+    	return "输入时间:{}\n时针角度:{:.4f}\n分针角度:{:.4f}\n秒针角度:{:.4f}\n".format(inTime,angleHour,angleMinute,angleSecond)
 
     def daemonPredict(self, inUserSaid):
         aiSaid = "Sorry,i don't know..."
-        print(self.callbackKey)
         if self.callbackKey == 'firstCall':
             if inUserSaid == "1":
                 aiSaid = self.printHelloWorld()
@@ -44,7 +58,7 @@ class Chatbot:
 
 
     def chatInteractive(self):
-        sysSaid = '输入编号启动相应的问题\n'+ '[1]启动helloWorld\n[2]启动钟表问题'
+        sysSaid = '输入编号启动相应的问题\n姜彦孜最棒了！\n'+ '[1]启动helloWorld\n[2]启动钟表问题'
         print('{}{}'.format(self.SENTENCES_PREFIX[0],sysSaid))
 
         while True:
