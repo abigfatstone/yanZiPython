@@ -44,7 +44,7 @@ class ClockAngle:
         if inStep == '0':
             return ['calc_hour_minute',"请以下面的格式输入：开始小时，结束小时，角度；例如：4,5,90",'1']
         else:
-            #try:
+            try:
 
                 inTimeList  = inTime.split(",")
                 hourStart   = int(inTimeList[0])
@@ -53,6 +53,7 @@ class ClockAngle:
                 print('='*28)
                 for iHour in range(hourStart,hourEnd,1):
                     for iMinute in range(0,60):
+
                         for iSecond in range(0,60):
                             angleSecond,angleMinute,angleHour = self.calcAngle(iSecond,iMinute,iHour)
                             if round(abs(angleHour - angleMinute),1) == angleMatch + 0.0:
@@ -62,8 +63,8 @@ class ClockAngle:
                                 print('='*28)
                 return ['call_done',"计算完成",'0']
 
-            # except:
-            #     return ['calc_hour_minute',"请以下面的格式输入：开始小时，结束小时，角度；例如：4,5,90",'1']
+            except:
+                return ['calc_hour_minute',"请以下面的格式输入：开始小时，结束小时，角度；例如：4,5,90",'1']
 
 
 
