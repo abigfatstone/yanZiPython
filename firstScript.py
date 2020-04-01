@@ -14,7 +14,9 @@ class Chatbot:
         self.args = None
         self.SENTENCES_PREFIX = ['AI: ', 'yanZi: ']
         self.callbackKey = 'first_call'
-        self.functionList = '输入编号启动相应的问题\n[1]启动helloWorld\n[2]启动钟表问题'
+        self.stepID = '0'
+        self.is_debug = '0'
+        self.functionList = '输入编号启动相应的问题\n[1]启动helloWorld\n[2]启动钟表问题\n[3]计算钟表角度'
         self.helloWorld = HelloWorld()
         self.clockAngle = ClockAngle()
 
@@ -22,29 +24,41 @@ class Chatbot:
     def sayHello(self):
         helloString = '姜彦孜你好，接下来将开启美妙的python程序之旅。\n'+self.functionList
         self.callbackKey = 'list_function'
-        return [self.callbackKey,helloString]
+        self.stepID ='0'
+        return [self.callbackKey,helloString,self.stepID]
 
     def listFunction(self):
         self.callbackKey = 'list_function'
-        return [self.callbackKey,self.functionList]
+        self.stepID ='0'
+        return [self.callbackKey,self.functionList,self.stepID]
 
     def daemonPredict(self, inUserSaid):
-   
+
+        if self.is_debug == '1':
+            print([inUserSaid,self.callbackKey,self.stepID,"start daemonPredict"])
+
         if self.callbackKey == 'list_function':
             if inUserSaid == "1":
-                aiSaid = self.helloWorld.printHelloWorld(inUserSaid)
+                aiSaid = self.helloWorld.printHelloWorld([inUserSaid,'0'])
             elif inUserSaid == '2' :
-                aiSaid = self.clockAngle.getClockInput(inUserSaid)
+                aiSaid = self.clockAngle.calcClockAngle([inUserSaid,'0'])
+            elif inUserSaid == '3' :
+                aiSaid = self.clockAngle.calcHourMinute([inUserSaid,'0'])    
             else:
                 aiSaid = self.listFunction()
 
         elif self.callbackKey =='calc_clock_angle':
-            aiSaid = self.clockAngle.calcClockAngle(inUserSaid)
+            aiSaid = self.clockAngle.calcClockAngle([inUserSaid,self.stepID])
 
+        elif self.callbackKey =='calc_hour_minute':
+            aiSaid = self.clockAngle.calcHourMinute([inUserSaid,self.stepID])
+            
         else:
             aiSaid = self.listFunction()
 
         self.callbackKey = aiSaid[0]
+        self.stepID = aiSaid[2]
+
         return aiSaid
 
 
@@ -64,15 +78,3 @@ class Chatbot:
 if __name__ == "__main__":
     chatbot = Chatbot()
     chatbot.chatInteractive()
-
-
-class HelloWorld():
-
-    def printHelloWorld(self):
-        print ("i love china")
-        print ( 4 + 5 - (99/53) )
-        print ( 4 + 5.0 - (99/53) )
-        print ( 4 + 5.0 - (99/53.0) )
-        print ("="*30 + '\n' + "=" + " "* 9 + "我要学编程" + " " * 9 + "=" + '\n' + "="*30)
-        self.callbackKey = 'firstCall'
-        return "helloWorld finished"
