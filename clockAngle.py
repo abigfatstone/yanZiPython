@@ -30,7 +30,7 @@ class ClockAngle:
                 if sSecond < 0 or sSecond>60:
                     return ['calc_clock_angle',"错误的秒针格式",'1']
 
-                angleHour,angleMinute,angleSecond = self.calcAngle(sSecond,sMinute,sHour)
+                angleSecond,angleMinute,angleHour = self.calcAngle(sSecond,sMinute,sHour)
 
                 return ['call_done',"输入时间:\t{}\n时针角度:\t{:.4f}\n分针角度:\t{:.4f}\n秒针角度:\t{:.4f}".format(inTime,angleHour,angleMinute,angleSecond),'0']
 
