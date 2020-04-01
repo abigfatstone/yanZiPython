@@ -51,16 +51,16 @@ class ClockAngle:
                 hourEnd     = int(inTimeList[1])
                 angleMatch  = int(inTimeList[2])
                 print('='*28)
-                for iHour in range(hourStart,hourEnd):
-                    for iMinute in range(0,59):
-                        for iSecond in range(0,59):
+                for iHour in range(hourStart,hourEnd,1):
+                    for iMinute in range(0,60):
+                        for iSecond in range(0,60):
                             angleSecond,angleMinute,angleHour = self.calcAngle(iSecond,iMinute,iHour)
                             if round(abs(angleHour - angleMinute),1) == angleMatch + 0.0:
                                 print('\t{}:{}:{}'.format(iHour,iMinute,iSecond))
                                 print('='*28)
                                 print('时针角度:\t{:.4f}\n分针角度:\t{:.4f}\n秒针角度:\t{:.4f}'.format(angleHour,angleMinute,angleSecond))
                                 print('='*28)
-                    return ['call_done',"计算完成",'0']
+                return ['call_done',"计算完成",'0']
 
             # except:
             #     return ['calc_hour_minute',"请以下面的格式输入：开始小时，结束小时，角度；例如：4,5,90",'1']
