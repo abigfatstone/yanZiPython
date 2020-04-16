@@ -1,5 +1,9 @@
 from PIL import Image
-import argparse
+
+import os
+
+def isimage(fn):
+    return os.path.splitext(fn)[-1] in ('.jpg', '.JPG', '.png', '.PNG')
 
 class AsciiImage:
 
@@ -16,10 +20,26 @@ class AsciiImage:
     def ascii_pic(self,inUserSaid):
 
         IMG = "resource//acd.jpg"
-        IMG = "resource//"+input("文件路径位于~/Documents/GitHub/yanZiPython/resource：") 
+        cwd = os.getcwd()
+        resource_dir = os.path.dirname(cwd) +'/resource/'
+        os.system('mkdir -p ' + resource_dir)
+        fileList = os.listdir(os.path.dirname(resource_dir))
+        if len(fileList) == 0:
+            os.system("cp " + cwd +'/resource/*.* '+ resource_dir)
+            fileList = os.listdir(os.path.dirname(resource_dir))
+        # IMG = "resource//acd.jpg"+input("文件路径位于~/Documents/GitHub/yanZiPython/resource：") 
+        print("文件夹" + resource_dir +'有以下图片文件')
+        fileID = 0
+        fileToAsciiList = []
+        for filename in os.listdir(os.path.dirname(resource_dir)):
+            if isimage(filename):
+                print('[{}]{}'.format(fileID,filename))
+                fileToAsciiList.append(resource_dir + filename)
+                fileID = fileID + 1
+        file2AsciiID = eval(input("请选择要转换的文件编号:"))
         WIDTH = 80
         HEIGHT = 40
-        im = Image.open(IMG)
+        im = Image.open(fileToAsciiList[file2AsciiID])
         im = im.resize((WIDTH,HEIGHT), Image.NEAREST)
 
         txt = ""
@@ -29,4 +49,4 @@ class AsciiImage:
                 txt += self.get_char(*im.getpixel((j,i)))
             txt += '\n'
         print(txt)
-        return ['call_done',"drawPolygon Done",'0']
+        return ['call_done',"AsciiImage Done",'0']
