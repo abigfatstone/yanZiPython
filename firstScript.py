@@ -56,7 +56,7 @@ class Chatbot:
             elif inUserSaid == '7' :
                 aiSaid = self.turtleDraw.drawPolygon([inUserSaid,'0'])      
             elif inUserSaid == '8' :
-                aiSaid = self.turtleDraw.drawName([inUserSaid,'0'])         
+                aiSaid = self.turtleDraw.lion([inUserSaid,'0'])         
             else:
                 aiSaid = self.listFunction()
 
