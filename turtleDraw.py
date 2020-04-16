@@ -18,8 +18,6 @@ class TurtleDraw:
 
 
     def drawName(self,inUserSaid):
-        turtle.tracer(fal)
-        turtle.tracer(True)
         t = turtle.Pen()
         turtle.bgcolor("black")
 
