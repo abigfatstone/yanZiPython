@@ -1,39 +1,58 @@
 # -*- coding: UTF-8 -*-
-import turtle
-import time
+import turtle 
 import turtle as t
+import time
+
 
 class TurtleDraw:
 
+    def __init__(self):
+        try:
+            turtle.Terminator()
+        except Exception as e:
+            pass
+
+    def turtleClose(self):
+        try:
+            turtle.Terminator()
+        except Exception as e:
+            pass
+
     def drawPolygon(self,inUserSaid):
-        t = turtle.Pen()
+        sides = eval(input("输入要绘制的边的数目（3-6）:"))
+        turtle.clearscreen() 
+        tpen = turtle.Pen()
+
         turtle.bgcolor("black")
-        sides = eval(input("输入要绘制的边的数目（2-6）！"))
+
         colors = ["red", "yellow", "green", "blue", "orange", "purple"]
-        for x in range(100):
-            t.pencolor(colors[x % sides])
-            t.forward(x * 3 / sides + x)
-            t.left(360 / sides + 1)
-            t.width(x * sides / 200)
+        for x in range(60):
+            tpen.pencolor(colors[x % sides])
+            tpen.forward(x * 3 / sides + x)
+            tpen.left(360 / sides + 1)
+            tpen.width(x * sides / 200)
         return ['call_done',"drawPolygon Done",'0']
 
 
     def drawName(self,inUserSaid):
-        t = turtle.Pen()
+        turtle.clearscreen() 
+        tpen = turtle.Pen()
         turtle.bgcolor("black")
 
         my_name = turtle.textinput("输入你的姓名", "你的名字？")
         colors = ["red", "yellow", "green", "blue"]
-        for x in range(70):
-            t.pencolor(colors[x % 4])
-            t.penup()
-            t.forward(x * 4)
-            t.pendown()
-            t.write(my_name, font=("Arial", int((x + 4) / 4), "bold"))
-            t.left(92)
+        for x in range(60):
+            tpen.pencolor(colors[x % 4])
+            tpen.penup()
+            tpen.forward(x * 4)
+            tpen.pendown()
+            tpen.write(my_name, font=("Arial", int((x + 4) / 4), "bold"))
+            tpen.left(92)
         return ['call_done',"drawName Done",'0']
 
     def drawFlower(self,inUserSaid):
+        turtle.clearscreen() 
+        turtle.bgcolor("black")
         turtle.color('red','yellow')
         turtle.begin_fill()
         while True:
@@ -43,10 +62,12 @@ class TurtleDraw:
                 break
         turtle.end_fill()
         turtle.tracer(False)
-        return ['call_done',"drawName Done",'0']
+        return ['call_done',"drawFlower Done",'0']
 
 
     def drawFiveStar(self,inUserSaid):
+        turtle.clearscreen()         
+        turtle.bgcolor("white")
         turtle.pensize(5)
         turtle.pencolor("yellow")
         turtle.fillcolor("red")
@@ -56,112 +77,112 @@ class TurtleDraw:
           turtle.forward(200)
           turtle.right(144)
         turtle.end_fill()
-        time.sleep(2)
          
         turtle.penup()
         turtle.goto(-150,-120)
         turtle.color("violet")
         turtle.write("Done", font=('Arial', 40, 'normal'))
-         
-        turtle.mainloop()
+        return ['call_done',"drawFiveStar Done",'0']
 
-    
 
-    def hair(self):    # 画头发
-        t.penup()
-        t.goto(-50, 150)
-        t.pendown()
-        t.fillcolor('#a2774d')
-        t.begin_fill()
-        for j in range(10):                   # 重复执行10次
-            t.setheading(60 - (j * 36))       # 每次调整初始角度
-            t.circle(-50, 120)                # 画120度的弧
-        t.end_fill()
-
-    def face(self):    # 画脸
-        t.penup()
-        t.goto(0, 100)
-        t.pendown()
-        t.fillcolor('#f2ae20')
-        t.begin_fill()
-        t.setheading(180)
-        t.circle(85)
-        t.end_fill()
-        #下巴
-        t.circle(85, 120)
-        t.fillcolor('white')
-        t.begin_fill()
-        t.circle(85, 120)
-        t.setheading(135)
-        t.circle(100, 95)
-        t.end_fill()
-        
-    def ears(self,dir):    # 画眼睛，dir用来设置方向，左右眼对称
-        t.penup()
-        t.goto((0-dir)*30, 90)
-        t.setheading(90)
-        t.pendown()
-        t.fillcolor('#f2ae20')
-        t.begin_fill()
-        t.circle(dir*30)
-        t.end_fill()
-        
-        t.penup()
-        t.goto((0-dir)*40, 85)
-        t.setheading(90)
-        t.pendown()
-        t.fillcolor('white')
-        t.begin_fill()
-        t.circle(dir*17)
-        t.end_fill()
-        
-    def nose(self):    # 画鼻子
-        t.penup()
-        t.goto(20, 0)
-        t.setheading(90)
-        t.pendown()
-        t.fillcolor('#a2774d')
-        t.begin_fill()
-        t.circle(20)
-        t.end_fill()
-        
-    def eye(self,dir):    # 画耳朵，dir用来设置方向，左右耳对称
-        t.penup()
-        t.goto((0-dir)*30, 20)
-        t.setheading(0)
-        t.pendown()
-        t.fillcolor('black')
-        t.begin_fill()
-        t.circle(10)
-        t.end_fill()
-
-    def mouth(self):    # 画嘴巴
-        t.penup()
-        t.goto(0, 0)
-        t.setheading(-90)
-        t.pendown()
-        t.forward(50)
-        t.setheading(0)
-        t.circle(80, 30)
-        t.penup()
-        t.goto(0, -50)
-        t.setheading(180)
-        t.pendown()
-        t.circle(-80, 30)   
         
     def lion(self,inUserSaid):
-        self.hair()
-        self.ears(1)
-        self.ears(-1)
-        self.face()
-        self.eye(1)
-        self.eye(-1)
-        self.mouth()
-        self.nose()
-        t.done()
-        return ['call_done',"drawPolygon Done",'0']
+
+        def hair():    # 画头发
+            t.penup()
+            t.goto(-50, 150)
+            t.pendown()
+            t.fillcolor('#a2774d')
+            t.begin_fill()
+            for j in range(10):                   # 重复执行10次
+                t.setheading(60 - (j * 36))       # 每次调整初始角度
+                t.circle(-50, 120)                # 画120度的弧
+            t.end_fill()
+
+        def face():    # 画脸
+            t.penup()
+            t.goto(0, 100)
+            t.pendown()
+            t.fillcolor('#f2ae20')
+            t.begin_fill()
+            t.setheading(180)
+            t.circle(85)
+            t.end_fill()
+            #下巴
+            t.circle(85, 120)
+            t.fillcolor('white')
+            t.begin_fill()
+            t.circle(85, 120)
+            t.setheading(135)
+            t.circle(100, 95)
+            t.end_fill()
+            
+        def ears(dir):    # 画眼睛，dir用来设置方向，左右眼对称
+            t.penup()
+            t.goto((0-dir)*30, 90)
+            t.setheading(90)
+            t.pendown()
+            t.fillcolor('#f2ae20')
+            t.begin_fill()
+            t.circle(dir*30)
+            t.end_fill()
+            
+            t.penup()
+            t.goto((0-dir)*40, 85)
+            t.setheading(90)
+            t.pendown()
+            t.fillcolor('white')
+            t.begin_fill()
+            t.circle(dir*17)
+            t.end_fill()
+            
+        def nose():    # 画鼻子
+            t.penup()
+            t.goto(20, 0)
+            t.setheading(90)
+            t.pendown()
+            t.fillcolor('#a2774d')
+            t.begin_fill()
+            t.circle(20)
+            t.end_fill()
+            
+        def eye(dir):    # 画耳朵，dir用来设置方向，左右耳对称
+            t.penup()
+            t.goto((0-dir)*30, 20)
+            t.setheading(0)
+            t.pendown()
+            t.fillcolor('black')
+            t.begin_fill()
+            t.circle(10)
+            t.end_fill()
+
+        def mouth():    # 画嘴巴
+            t.penup()
+            t.goto(0, 0)
+            t.setheading(-90)
+            t.pendown()
+            t.forward(50)
+            t.setheading(0)
+            t.circle(80, 30)
+            t.penup()
+            t.goto(0, -50)
+            t.setheading(180)
+            t.pendown()
+            t.circle(-80, 30)   
+
+        t.clearscreen() 
+        hair()
+        ears(1)
+        ears(-1)
+        face()
+        eye(1)
+        eye(-1)
+        mouth()
+        nose()
+        return ['call_done',"drawLion Done",'0']
 
     def drawpig(self,inUserSaid):
+        t.clearscreen()         
         t.pensize(4)
         t.hideturtle()
         t.colormode(255)
@@ -426,5 +447,4 @@ class TurtleDraw:
         t.circle(70, 20)
         t.circle(10, 330)
         t.circle(70, 30)
-        t.exitonclick()
         return ['call_done',"drawPolygon Done",'0']
