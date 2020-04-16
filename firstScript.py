@@ -25,7 +25,7 @@ class Chatbot:
 
 
     def sayHello(self):
-        helloString = '八二老师=八卦老师。\n'+self.functionList
+        helloString = '姜彦孜你好，开始你的python之旅\n'+self.functionList
         self.callbackKey = 'list_function'
         self.stepID ='0'
         return [self.callbackKey,helloString,self.stepID]
