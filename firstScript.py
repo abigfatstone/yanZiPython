@@ -16,7 +16,7 @@ class Chatbot:
         self.callbackKey = 'first_call'
         self.stepID = '0'
         self.is_debug = '0'
-        self.functionList = '输入编号启动相应的问题\n[1]启动helloWorld\n[2]启动钟表问题\n[3]计算钟表角度'
+        self.functionList = '输入编号启动相应的问题\n[1]启动helloWorld\n[2]启动钟表问题\n[3]计算钟表角度\n[4]打印9X9乘法表'
         self.helloWorld = HelloWorld()
         self.clockAngle = ClockAngle()
 
@@ -44,6 +44,8 @@ class Chatbot:
                 aiSaid = self.clockAngle.calcClockAngle([inUserSaid,'0'])
             elif inUserSaid == '3' :
                 aiSaid = self.clockAngle.calcHourMinute([inUserSaid,'0'])    
+            elif inUserSaid == '4' :
+                aiSaid = self.helloWorld.print9X9([inUserSaid,'0'])  
             else:
                 aiSaid = self.listFunction()
 
