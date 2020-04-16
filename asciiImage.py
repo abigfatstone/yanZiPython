@@ -16,7 +16,7 @@ class AsciiImage:
     def ascii_pic(self,inUserSaid):
 
         IMG = "resource//acd.jpg"
-        IMG = "~Documents//"+input("文件路径位于~/Documents/：") 
+        IMG = "resource//"+input("文件路径位于~/Documents/GitHub/yanZiPython/resource：") 
         WIDTH = 80
         HEIGHT = 40
         im = Image.open(IMG)
