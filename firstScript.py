@@ -2,6 +2,7 @@
 
 from helloWorld import HelloWorld
 from clockAngle import ClockAngle
+from turtleDraw import TurtleDraw
 
 class Chatbot:
 
@@ -16,9 +17,10 @@ class Chatbot:
         self.callbackKey = 'first_call'
         self.stepID = '0'
         self.is_debug = '0'
-        self.functionList = '输入编号启动相应的问题\n[1]启动helloWorld\n[2]启动钟表问题\n[3]计算钟表角度\n[4]打印9X9乘法表'
+        self.functionList = '输入编号启动相应的问题\n[1]启动helloWorld\n[2]启动钟表问题\n[3]计算钟表角度\n[4]打印9X9乘法表\n[5]绘制多边形'
         self.helloWorld = HelloWorld()
         self.clockAngle = ClockAngle()
+        self.turtleDraw = TurtleDraw()
 
 
     def sayHello(self):
@@ -46,6 +48,8 @@ class Chatbot:
                 aiSaid = self.clockAngle.calcHourMinute([inUserSaid,'0'])    
             elif inUserSaid == '4' :
                 aiSaid = self.helloWorld.print9X9([inUserSaid,'0'])  
+            elif inUserSaid == '5' :
+                aiSaid = self.turtleDraw.drawFlower([inUserSaid,'0'])  
             else:
                 aiSaid = self.listFunction()
 
@@ -69,7 +73,7 @@ class Chatbot:
         print('{}{}'.format(self.SENTENCES_PREFIX[0],aiSaid[1]))
         
         while True:
-            userSaid = raw_input(self.SENTENCES_PREFIX[1])
+            userSaid = input(self.SENTENCES_PREFIX[1])
             if userSaid.lower() == 'exit':    
                 break
             
