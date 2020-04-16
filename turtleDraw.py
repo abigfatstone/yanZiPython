@@ -19,15 +19,15 @@ class TurtleDraw:
             pass
 
     def drawPolygon(self,inUserSaid):
-        sides = eval(input("输入要绘制的边的数目（3-6）:"))
+        sides = eval(input("输入要绘制的边的数目（3-100）:"))
         turtle.clearscreen() 
         tpen = turtle.Pen()
 
         turtle.bgcolor("black")
 
         colors = ["red", "yellow", "green", "blue", "orange", "purple"]
-        for x in range(60):
-            tpen.pencolor(colors[x % sides])
+        for x in range(100):
+            tpen.pencolor(colors[(x % sides) % 6])
             tpen.forward(x * 3 / sides + x)
             tpen.left(360 / sides + 1)
             tpen.width(x * sides / 200)
