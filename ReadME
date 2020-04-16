@@ -14,7 +14,7 @@ virtualenv -p /usr/local/bin/python3 py3
 source ~/py3/bin/activate
 
 修改~/.bash_profile，增加：
-source ~/py3/bin/activate
+echo "source ~/py3/bin/activate" >~/.bash_profile
 
 安装pillow
 pip3 install pillow -i http://mirrors.aliyun.com/pypi/simple/   --trusted-host mirrors.aliyun.com
