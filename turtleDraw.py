@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import turtle
+import time
 
 class TurtleDraw:
 
@@ -17,6 +18,7 @@ class TurtleDraw:
 
 
     def drawName(self,inUserSaid):
+        turtle.tracer(fal)
         turtle.tracer(True)
         t = turtle.Pen()
         turtle.bgcolor("black")
@@ -43,3 +45,23 @@ class TurtleDraw:
         turtle.end_fill()
         turtle.tracer(False)
         return ['call_done',"drawName Done",'0']
+
+
+    def drawFiveStar(self,inUserSaid):
+        turtle.pensize(5)
+        turtle.pencolor("yellow")
+        turtle.fillcolor("red")
+         
+        turtle.begin_fill()
+        for _ in range(5):
+          turtle.forward(200)
+          turtle.right(144)
+        turtle.end_fill()
+        time.sleep(2)
+         
+        turtle.penup()
+        turtle.goto(-150,-120)
+        turtle.color("violet")
+        turtle.write("Done", font=('Arial', 40, 'normal'))
+         
+        turtle.mainloop()

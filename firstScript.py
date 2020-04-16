@@ -17,7 +17,8 @@ class Chatbot:
         self.callbackKey = 'first_call'
         self.stepID = '0'
         self.is_debug = '0'
-        self.functionList = '输入编号启动相应的问题\n[1]启动helloWorld\n[2]启动钟表问题\n[3]计算钟表角度\n[4]打印9X9乘法表\n[5]绘制多边形'
+        self.functionList = '输入编号启动相应的问题\n[1]启动helloWorld\n[2]启动钟表问题\n[3]计算钟表角度\n[4]打印9X9乘法表\n[5]绘制多边形\n' +\
+                            '[6]画五角星\n[7]画多边形\n[8]画名字形状'
         self.helloWorld = HelloWorld()
         self.clockAngle = ClockAngle()
         self.turtleDraw = TurtleDraw()
@@ -50,6 +51,12 @@ class Chatbot:
                 aiSaid = self.helloWorld.print9X9([inUserSaid,'0'])  
             elif inUserSaid == '5' :
                 aiSaid = self.turtleDraw.drawFlower([inUserSaid,'0'])  
+            elif inUserSaid == '6' :
+                aiSaid = self.turtleDraw.drawFiveStar([inUserSaid,'0'])  
+            elif inUserSaid == '7' :
+                aiSaid = self.turtleDraw.drawPolygon([inUserSaid,'0'])      
+            elif inUserSaid == '8' :
+                aiSaid = self.turtleDraw.drawName([inUserSaid,'0'])         
             else:
                 aiSaid = self.listFunction()
 
