@@ -13,9 +13,9 @@ class HelloWorld:
         for i in range(20,10,-1):
             #if i ==3 :
                 print("=" * i )
-        return ['new_call',"helloWorld finished",'0']
+        return ['list_function',"helloWorld finished",'0']
 
     def print9X9(self,inUserSaid):
         print('\n'.join([' '.join ('%dx%d=%2d' % (x,y,x*y)  for x in range(1,y+1)) for y in range(1,10)]))
 
-        return ['new_call',"9X9 finished",'0']
+        return ['list_function',"9X9 finished",'0']

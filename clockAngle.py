@@ -32,7 +32,7 @@ class ClockAngle:
 
                 angleSecond,angleMinute,angleHour = self.calcAngle(sSecond,sMinute,sHour)
 
-                return ['call_done',"输入时间:\t{}\n时针角度:\t{:.4f}\n分针角度:\t{:.4f}\n秒针角度:\t{:.4f}".format(inTime,angleHour,angleMinute,angleSecond),'0']
+                return ['list_function',"输入时间:\t{}\n时针角度:\t{:.4f}\n分针角度:\t{:.4f}\n秒针角度:\t{:.4f}".format(inTime,angleHour,angleMinute,angleSecond),'0']
 
             except:
                 return ['calc_clock_angle',"请输入要计算的时间，以HH:MI:SS的格式,例如04:35:00",'1']
@@ -61,7 +61,7 @@ class ClockAngle:
                                 print('='*28)
                                 print('时针角度:\t{:.4f}\n分针角度:\t{:.4f}\n秒针角度:\t{:.4f}'.format(angleHour,angleMinute,angleSecond))
                                 print('='*28)
-                return ['call_done',"计算完成",'0']
+                return ['list_function',"计算完成",'0']
 
             except:
                 return ['calc_hour_minute',"请以下面的格式输入：开始小时，结束小时，角度；例如：4,5,90",'1']

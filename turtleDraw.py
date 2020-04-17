@@ -31,7 +31,7 @@ class TurtleDraw:
             tpen.forward(x * 3 / sides + x)
             tpen.left(360 / sides + 1)
             tpen.width(x * sides / 200)
-        return ['call_done',"drawPolygon Done",'0']
+        return ['list_function',"drawPolygon Done",'0']
 
 
     def drawName(self,inUserSaid):
@@ -48,7 +48,7 @@ class TurtleDraw:
             tpen.pendown()
             tpen.write(my_name, font=("Arial", int((x + 4) / 4), "bold"))
             tpen.left(92)
-        return ['call_done',"drawName Done",'0']
+        return ['list_function',"drawName Done",'0']
 
     def drawFlower(self,inUserSaid):
         turtle.clearscreen() 
@@ -62,7 +62,7 @@ class TurtleDraw:
                 break
         turtle.end_fill()
         turtle.tracer(False)
-        return ['call_done',"drawFlower Done",'0']
+        return ['list_function',"drawFlower Done",'0']
 
 
     def drawFiveStar(self,inUserSaid):
@@ -82,7 +82,7 @@ class TurtleDraw:
         turtle.goto(-150,-120)
         turtle.color("violet")
         turtle.write("Done", font=('Arial', 40, 'normal'))
-        return ['call_done',"drawFiveStar Done",'0']
+        return ['list_function',"drawFiveStar Done",'0']
 
 
         
@@ -179,7 +179,7 @@ class TurtleDraw:
         eye(-1)
         mouth()
         nose()
-        return ['call_done',"drawLion Done",'0']
+        return ['list_function',"drawLion Done",'0']
 
     def drawpig(self,inUserSaid):
         t.clearscreen()         
@@ -447,4 +447,4 @@ class TurtleDraw:
         t.circle(70, 20)
         t.circle(10, 330)
         t.circle(70, 30)
-        return ['call_done',"drawPolygon Done",'0']
+        return ['list_function',"drawPolygon Done",'0']

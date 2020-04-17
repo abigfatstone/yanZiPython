@@ -54,7 +54,7 @@ class AsciiImage:
                     txt += self.get_char(*im.getpixel((j,i)))
                 txt += '\n'
             print(txt)
-            return ['call_done',"AsciiImage Done",'0']
+            return ['list_function',"AsciiImage Done",'0']
         except:
             return ['call_done',"文件编号输入错误",'0']
 

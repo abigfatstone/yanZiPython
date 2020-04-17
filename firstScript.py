@@ -26,7 +26,7 @@ class Chatbot:
         self.asciiImage = AsciiImage()
 
     def sayHello(self):
-        helloString = '姜彦孜你好，开始你的python之旅\n'+self.functionList
+        helloString = '姜彦孜你好，接下来将开始你的python奇妙之旅\n'+self.functionList
         self.callbackKey = 'list_function'
         self.stepID ='0'
         return [self.callbackKey,helloString,self.stepID]
@@ -53,7 +53,6 @@ class Chatbot:
             elif inUserSaid == '5' :
                 aiSaid = self.turtleDraw.drawFlower([inUserSaid,'0'])  
             elif inUserSaid == '6' :
-                turtleDraw = TurtleDraw()
                 aiSaid = self.turtleDraw.drawFiveStar([inUserSaid,'0'])  
             elif inUserSaid == '7' :
                 aiSaid = self.turtleDraw.drawPolygon([inUserSaid,'0'])      
