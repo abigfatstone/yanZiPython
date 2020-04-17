@@ -4,6 +4,7 @@ from helloWorld import HelloWorld
 from clockAngle import ClockAngle
 from turtleDraw import TurtleDraw
 from asciiImage import AsciiImage
+from chatbotWeb import ChatbotWeb
 
 class Chatbot:
 
@@ -18,12 +19,13 @@ class Chatbot:
         self.callbackKey = 'first_call'
         self.stepID = '0'
         self.is_debug = '0'
-        self.functionList = '输入编号启动相应的问题\n[1]启动helloWorld\n[2]启动钟表问题\n[3]计算钟表角度\n[4]打印9X9乘法表\n[5]画太阳花\n' +\
+        self.functionList = '输入“list”，打印功能列表\n输入编号启动相应的问题\n[1]启动helloWorld\n[2]启动钟表问题\n[3]计算钟表角度\n[4]打印9X9乘法表\n[5]画太阳花\n' +\
                             '[6]画五角星\n[7]画多边形\n[8]画狮子\n[9]画小猪佩奇\n[10]画名字\n[11]照片转化ASCII'
         self.helloWorld = HelloWorld()
         self.clockAngle = ClockAngle()
         self.turtleDraw = TurtleDraw()
         self.asciiImage = AsciiImage()
+        self.chatbotWeb = ChatbotWeb()
 
     def sayHello(self):
         helloString = '姜彦孜你好，接下来将开始你的python奇妙之旅\n'+self.functionList
@@ -41,7 +43,9 @@ class Chatbot:
         if self.is_debug == '1':
             print([inUserSaid,self.callbackKey,self.stepID,"start daemonPredict"])
 
-        if self.callbackKey == 'list_function':
+        if inUserSaid == 'list':
+            aiSaid = self.listFunction()
+        elif self.callbackKey == 'list_function':
             if inUserSaid == "1":
                 aiSaid = self.helloWorld.printHelloWorld([inUserSaid,'0'])
             elif inUserSaid == '2' :
@@ -65,16 +69,16 @@ class Chatbot:
             elif inUserSaid == '11' :
                 aiSaid = self.asciiImage.ascii_pic([inUserSaid,'0'])                                             
             else:
-                aiSaid = self.listFunction()
+                aiSaid = self.chatbotWeb.chat([inUserSaid,self.stepID])
 
         elif self.callbackKey =='calc_clock_angle':
             aiSaid = self.clockAngle.calcClockAngle([inUserSaid,self.stepID])
 
         elif self.callbackKey =='calc_hour_minute':
             aiSaid = self.clockAngle.calcHourMinute([inUserSaid,self.stepID])
-            
+
         else:
-            aiSaid = self.listFunction()
+            aiSaid = self.chatbotWeb.chat([inUserSaid,self.stepID])
 
         self.callbackKey = aiSaid[0]
         self.stepID = aiSaid[2]

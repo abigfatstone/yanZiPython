@@ -50,7 +50,7 @@ class AsciiImage:
                 fileToAsciiList.append(resource_dir + filename)
 
         #要求输入文件编号，并转化为数字类型
-        file2AsciiID = eval(input("请选择要转换的文件编号:"))
+        file2AsciiID = eval(input("请输入要转换的文件编号:"))
         WIDTH = 80
         HEIGHT = 40
 
