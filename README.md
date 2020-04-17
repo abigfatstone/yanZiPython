@@ -9,12 +9,14 @@ pip3 install virtualenv -i http://mirrors.aliyun.com/pypi/simple/   --trusted-ho
 
 #初始化venv
 virtualenv -p /usr/local/bin/python3 py3
-
+ 
 #激活venv
 source ~/py3/bin/activate
 
+
 #修改~/.bash_profile，增加：
 echo "source ~/py3/bin/activate" >~/.bash_profile
+echo "source ~/.bash_profile" >~/.zshrc
 
 #安装pillow
 pip3 install pillow -i http://mirrors.aliyun.com/pypi/simple/   --trusted-host mirrors.aliyun.com
