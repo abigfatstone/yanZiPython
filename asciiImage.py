@@ -28,7 +28,9 @@ class AsciiImage:
             os.system("cp " + cwd +'/resource/*.* '+ resource_dir)
             fileList = os.listdir(os.path.dirname(resource_dir))
         # IMG = "resource//acd.jpg"+input("文件路径位于~/Documents/GitHub/yanZiPython/resource：") 
-        print("文件夹" + resource_dir +'有以下图片文件')
+        
+        print("如果有新的文件需要转换，请将文件拷贝至文件夹" + resource_dir )
+        print("文件夹" + resource_dir +'当前有以下图片文件：')
         fileID = 0
         fileToAsciiList = []
         for filename in os.listdir(os.path.dirname(resource_dir)):
@@ -36,17 +38,23 @@ class AsciiImage:
                 print('[{}]{}'.format(fileID,filename))
                 fileToAsciiList.append(resource_dir + filename)
                 fileID = fileID + 1
+
         file2AsciiID = eval(input("请选择要转换的文件编号:"))
         WIDTH = 80
         HEIGHT = 40
-        im = Image.open(fileToAsciiList[file2AsciiID])
-        im = im.resize((WIDTH,HEIGHT), Image.NEAREST)
 
-        txt = ""
+        try:
+            im = Image.open(fileToAsciiList[file2AsciiID])
+            im = im.resize((WIDTH,HEIGHT), Image.NEAREST)
 
-        for i in range(HEIGHT):
-            for j in range(WIDTH):
-                txt += self.get_char(*im.getpixel((j,i)))
-            txt += '\n'
-        print(txt)
-        return ['call_done',"AsciiImage Done",'0']
+            txt = ""
+
+            for i in range(HEIGHT):
+                for j in range(WIDTH):
+                    txt += self.get_char(*im.getpixel((j,i)))
+                txt += '\n'
+            print(txt)
+            return ['call_done',"AsciiImage Done",'0']
+        except:
+            return ['call_done',"文件编号输入错误",'0']
+
