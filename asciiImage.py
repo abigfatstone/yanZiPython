@@ -32,12 +32,13 @@ class AsciiImage:
         print("如果有新的文件需要转换，请将文件拷贝至文件夹" + resource_dir )
         print("文件夹" + resource_dir +'当前有以下图片文件：')
         fileID = 0
-        fileToAsciiList = []
+        fileToAsciiList = ['']
         for filename in os.listdir(os.path.dirname(resource_dir)):
             if isimage(filename):
+                fileID = fileID + 1
                 print('[{}]{}'.format(fileID,filename))
                 fileToAsciiList.append(resource_dir + filename)
-                fileID = fileID + 1
+
 
         file2AsciiID = eval(input("请选择要转换的文件编号:"))
         WIDTH = 80
