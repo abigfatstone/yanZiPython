@@ -48,11 +48,11 @@ class AsciiImage:
         #获取resource文件夹下的所有文件列表
         fileList = os.listdir(os.path.dirname(resource_dir))
 
-        #如果是第一次运行，从resource文件夹下把初次照片拷贝到../resource下
-        if len(fileList) == 0:
-            os.system("cp " + cwd +'/resource/*.* '+ resource_dir)
-            #因为已经拷贝了新文件，所以重新获取文件列表
-            fileList = os.listdir(os.path.dirname(resource_dir))
+        # #如果是第一次运行，从resource文件夹下把初次照片拷贝到../resource下
+        # if len(fileList) == 0:
+        os.system("cp " + cwd +'/resource/*.* '+ resource_dir)
+        #因为已经拷贝了新文件，所以重新获取文件列表
+        fileList = os.listdir(os.path.dirname(resource_dir))
         
         print("如果有新的文件需要转换，请将文件拷贝至文件夹" + resource_dir )
         print("文件夹" + resource_dir +'当前有以下图片文件：')
