@@ -71,7 +71,7 @@ class Chatbot:
             elif inUserSaid == '12' :
                 aiSaid = self.asciiImage.worldCloudTxt([inUserSaid,'0'])                                                          
             else:
-                aiSaid = self.chatbotWeb.chat([inUserSaid,self.stepID])
+                aiSaid = self.chatbotWeb.chatWithBot([inUserSaid,self.stepID])
 
         elif self.callbackKey =='calc_clock_angle':
             aiSaid = self.clockAngle.calcClockAngle([inUserSaid,self.stepID])
@@ -80,7 +80,7 @@ class Chatbot:
             aiSaid = self.clockAngle.calcHourMinute([inUserSaid,self.stepID])
 
         else:
-            aiSaid = self.chatbotWeb.chat([inUserSaid,self.stepID])
+            aiSaid = self.chatbotWeb.chatWithBot([inUserSaid,self.stepID])
 
         self.callbackKey = aiSaid[0]
         self.stepID = aiSaid[2]
