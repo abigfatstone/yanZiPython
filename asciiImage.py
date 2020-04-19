@@ -37,36 +37,22 @@ class AsciiImage:
         return fileList   
 
     def ascii_pic(self,inUserSaid):
-
-        #获取程序的根目录
-        cwd = os.getcwd()
         #设置resource文件夹路径
-        resource_dir = os.path.dirname(cwd) +'/resource/'
-        #创建resource文件夹，如果已经存在resource文件夹，该命令会被忽略
-        os.system('mkdir -p ' + resource_dir)
+        resourceDIR = os.path.dirname(os.path.abspath(__file__)) +'/resource/'
 
-        #获取resource文件夹下的所有文件列表
-        fileList = os.listdir(os.path.dirname(resource_dir))
-
-        # #如果是第一次运行，从resource文件夹下把初次照片拷贝到../resource下
-        # if len(fileList) == 0:
-        os.system("cp " + cwd +'/resource/*.* '+ resource_dir)
-        #因为已经拷贝了新文件，所以重新获取文件列表
-        fileList = os.listdir(os.path.dirname(resource_dir))
-        
-        print("如果有新的文件需要转换，请将文件拷贝至文件夹" + resource_dir )
-        print("文件夹" + resource_dir +'当前有以下图片文件：')
+        print("如果有新的图片需要转换，请将图片文件拷贝至文件夹" + resourceDIR )
+        print("文件夹" + resourceDIR +'当前有以下图片文件：')
 
         #初始化文件ID
         fileID = 0
         #由于list的起始角标是0，为了便于理解，对于角标0放入一个空文件名，这样后面新加入的图片文件的编号（角标）可以从1开始。
         fileToAsciiList = ['']
-        for filename in os.listdir(os.path.dirname(resource_dir)):
+        for filename in os.listdir(os.path.dirname(resourceDIR)):
             #遍历所有的文件，如果是图片类型，则将文件放进列表并打印在屏幕上。
             if isimage(filename):
                 fileID = fileID + 1
                 print('[{}]{}'.format(fileID,filename))
-                fileToAsciiList.append(resource_dir + filename)
+                fileToAsciiList.append(resourceDIR + filename)
 
         #要求输入文件编号，并转化为数字类型
         file2AsciiID = eval(input("请输入要转换的文件编号:"))
@@ -94,34 +80,23 @@ class AsciiImage:
      
 
     def worldCloudTxt(self,inUserSaid):
-
-        #获取程序的根目录
-        cwd = os.getcwd()
-        #设置resource文件夹路径
-        resource_dir = os.path.dirname(cwd) +'/resource/'
-
-        if not os.path.exists(resource_dir):
-            #创建resource文件夹，如果已经存在resource文件夹，该命令会被忽略
-            os.system('mkdir -p ' + resource_dir)
-            os.system("cp " + cwd +'/resource/*.* '+ resource_dir)
-
-        print("如果有新的图片文件需要转换，请将图片文件拷贝至文件夹" + resource_dir )
-        print("文件夹" + resource_dir +'当前有以下图片文件：')
+        resourceDIR = os.path.dirname(os.path.abspath(__file__)) +'/resource/'
+        print("如果有新的图片文件需要转换，请将图片文件拷贝至文件夹" + resourceDIR )
+        print("文件夹" + resourceDIR +'当前有以下图片文件：')
         #获取resource文件夹下的所有文件列表
-        imageFileList = self.listFileType(resource_dir,['.jpg','.png'])
+        imageFileList = self.listFileType(resourceDIR,['.jpg','.png'])
         imageFileID = eval(input("请输入要转换的文件编号:"))
 
-        print("如果有新的txt文件需要转换，请将txt文件拷贝至文件夹" + resource_dir )
-        print("文件夹" + resource_dir +'当前有以下txt文件：')
+        print("如果有新的txt文件需要转换，请将txt文件拷贝至文件夹" + resourceDIR )
+        print("文件夹" + resourceDIR +'当前有以下txt文件：')
         #获取resource文件夹下的所有文件列表
-        txtFileList = self.listFileType(resource_dir,['.txt','.py'])
+        txtFileList = self.listFileType(resourceDIR,['.txt','.py'])
         txtFileID = eval(input("请输入要转换的文件编号:"))
 
         # 生成对象
         mask = np.array(Image.open(imageFileList[imageFileID]))
         # 从图片中生成颜色
         image_colors = ImageColorGenerator(mask)
-
 
         text = open(txtFileList[txtFileID]).read()
         # 中文分词  
@@ -155,9 +130,11 @@ class AsciiImage:
         # plt.show()
          
         # 保存到文件
-        os.system('mkdir -p ' + os.path.dirname(cwd) +'/output/')
-        wc.to_file(os.path.dirname(cwd) +'/output/'+'wordCloudOut.png')
-        return ['list_function',"生成的文件为："+os.path.dirname(cwd) +'/output/'+'wordCloudOut.png','0']
+        homeDIR = os.path.dirname(os.path.abspath(__file__)) 
+        fileName = os.path.split(imageFileList[imageFileID])[1]
+        os.system('mkdir -p ' + homeDIR +'/../output/')
+        wc.to_file(homeDIR +'/../output/out.'+fileName)
+        return ['list_function',"生成的文件为："+homeDIR +'/../output/out.'+fileName,'0']
 
 if __name__ == "__main__":
     asciiImage = AsciiImage()
