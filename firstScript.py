@@ -20,7 +20,7 @@ class Chatbot:
         self.stepID = '0'
         self.is_debug = '0'
         self.functionList = '输入“list”，打印功能列表\n输入编号启动相应的问题\n[1]启动helloWorld\n[2]启动钟表问题\n[3]计算钟表角度\n[4]打印9X9乘法表\n[5]画太阳花\n' +\
-                            '[6]画五角星\n[7]画多边形\n[8]画狮子\n[9]画小猪佩奇\n[10]画名字\n[11]照片转化ASCII'
+                            '[6]画五角星\n[7]画多边形\n[8]画狮子\n[9]画小猪佩奇\n[10]画名字\n[11]照片转化ASCII\n[12]照片转wordCloud'
         self.helloWorld = HelloWorld()
         self.clockAngle = ClockAngle()
         self.turtleDraw = TurtleDraw()
@@ -67,7 +67,9 @@ class Chatbot:
             elif inUserSaid == '10' :
                 aiSaid = self.turtleDraw.drawName([inUserSaid,'0'])     
             elif inUserSaid == '11' :
-                aiSaid = self.asciiImage.ascii_pic([inUserSaid,'0'])                                             
+                aiSaid = self.asciiImage.ascii_pic([inUserSaid,'0'])    
+            elif inUserSaid == '12' :
+                aiSaid = self.asciiImage.worldCloudTxt([inUserSaid,'0'])                                                          
             else:
                 aiSaid = self.chatbotWeb.chat([inUserSaid,self.stepID])
 
