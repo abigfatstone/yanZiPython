@@ -149,10 +149,10 @@ class AsciiImage:
 
         wc.recolor(color_func=image_colors)
          
-        # 显示词云
-        plt.imshow(wc, interpolation='bilinear')
-        plt.axis("off")
-        plt.show()
+        # # 显示词云
+        # plt.imshow(wc, interpolation='bilinear')
+        # plt.axis("off")
+        # plt.show()
          
         # 保存到文件
         os.system('mkdir -p ' + os.path.dirname(cwd) +'/output/')

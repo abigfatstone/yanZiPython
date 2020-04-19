@@ -1,5 +1,6 @@
 #执行程序
-python ~/Documents/GitHub/yanZiPython/firstScript.py
+cd ~/Documents/GitHub/yanZiPython/
+python firstScript.py
 
 
 #添加pip3源
@@ -67,3 +68,5 @@ brew install gcc
 
 #安装wordcloud
 pip3 install wordcloud
+
+pip3 install jieba
