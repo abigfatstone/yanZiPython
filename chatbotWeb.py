@@ -11,15 +11,15 @@ import string
 import requests
 
 class ChatbotWeb:
-    def __init__(self):
-        with open("resource/xiaobing.conf", "r") as f:  # 打开文件
-            data = f.readlines()  # 读取文件
-            self.uid = data[0].split('=')[1].strip()
-            self.source = data[1].split('=')[1].strip()
-            self.SUB = data[2].split('=')[1].strip()
-            self.isDebug = 0
-            if self.isDebug == 1:
-                print(self.uid,self.source,self.SUB)
+    # def __init__(self):
+    #     with open("resource/xiaobing.conf", "r") as f:  # 打开文件
+    #         data = f.readlines()  # 读取文件
+    #         self.uid = data[0].split('=')[1].strip()
+    #         self.source = data[1].split('=')[1].strip()
+    #         self.SUB = data[2].split('=')[1].strip()
+    #         self.isDebug = 0
+    #         if self.isDebug == 1:
+    #             print(self.uid,self.source,self.SUB)
 
     def qingyunke(self,inUserSaid):
         target = r'http://api.qingyunke.com/api.php?key=free&appid=0&msg='

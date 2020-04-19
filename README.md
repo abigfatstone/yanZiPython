@@ -1,6 +1,11 @@
+#执行程序
+python ~/Documents/GitHub/yanZiPython/firstScript.py
+
+
 #添加pip3源
 pip3 config set global.index-url http://mirrors.aliyun.com/pypi/simple/
 pip3 config set global.trusted-host mirrors.aliyun.com
+
 
 #升级pip
 pip3 install --upgrade pip
@@ -22,9 +27,6 @@ echo "source ~/.bash_profile" >~/.zshrc
 #安装pillow
 pip3 install pillow -i http://mirrors.aliyun.com/pypi/simple/   --trusted-host mirrors.aliyun.com
 
-#执行程序
-python firstScript.py
-
 
 
 #安装brew
@@ -32,12 +34,8 @@ python firstScript.py
 sudo echo "199.232.4.133 raw.githubusercontent.com" >>/etc/hosts
 
 #下载brew_install.sh
-curl -fsSL https://199.232.4.133/Homebrew/install/master/install >> brew_install.sh
+curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install >> brew_install.sh
 #编辑brew_install文件
-
-
-
-rm  /Users/fat/Library/Caches/Homebrew/portable-ruby-2.6.3.mavericks.bottle.tar.gz
 
 #安装brew
 ~/Documents/GitHub/yanZiPython/resource/brew_install.sh
@@ -58,7 +56,6 @@ git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew
 cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
 git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
 brew update
-
 
 
 #设置 bintray镜像
