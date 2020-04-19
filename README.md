@@ -32,24 +32,34 @@ python firstScript.py
 sudo echo "199.232.4.133 raw.githubusercontent.com" >>/etc/hosts
 
 #下载brew_install.sh
-curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install >> brew_install.sh
+curl -fsSL https://199.232.4.133/Homebrew/install/master/install >> brew_install.sh
 #编辑brew_install文件
 
 
+
+rm  /Users/fat/Library/Caches/Homebrew/portable-ruby-2.6.3.mavericks.bottle.tar.gz
+
 #安装brew
-/usr/bin/ruby -e "$(resource/brew_install.sh)"  
+~/Documents/GitHub/yanZiPython/resource/brew_install.sh
 
 
-#替换homebrew源
+#出现如下代码时，不用等了，直接关掉命令窗口
+==> Tapping homebrew/core
+Cloning into '/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core'...
+
+#进入下面的 Taps 目录，clone homebrew-core
+mkdir -p /usr/local/Homebrew/Library/Taps/homebrew
+cd /usr/local/Homebrew/Library/Taps/homebrew
+git clone https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+
+#把homebrew repo切换为清华镜像
 cd "$(brew --repo)"
-git remote set-url origin git://mirrors.ustc.edu.cn/brew.git
-
-#替换homebrew-core源
+git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
 cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
-git remote set-url origin git://mirrors.ustc.edu.cn/homebrew-core.git
-
-#brew更新
+git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
 brew update
+
+
 
 #设置 bintray镜像
 echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.bash_profile
