@@ -1,7 +1,7 @@
 # -*- coding: UTF-8 -*-
-#作者：姜子牙
-#创建时间：2020-04-17
-#最后修改：
+# 作者：姜子牙
+# 创建时间：2020-04-17
+# 最后修改：
 
 import urllib.request
 import time
@@ -9,6 +9,7 @@ import ssl
 import json
 import string
 import requests
+
 
 class ChatbotWeb:
     # def __init__(self):
@@ -21,7 +22,7 @@ class ChatbotWeb:
     #         if self.isDebug == 1:
     #             print(self.uid,self.source,self.SUB)
 
-    def qingyunke(self,inUserSaid):
+    def qingyunke(self, inUserSaid):
         target = r'http://api.qingyunke.com/api.php?key=free&appid=0&msg='
 
         tmp = target + inUserSaid[0]
@@ -29,12 +30,10 @@ class ChatbotWeb:
         page = urllib.request.urlopen(url)
 
         html = page.read().decode("utf-8")
-        #json转为dict,json.loads 用于解码 JSON 数据。该函数返回 Python 字段的数据类型
+        # json转为dict,json.loads 用于解码 JSON 数据。该函数返回 Python 字段的数据类型
         res = json.loads(html)
         return res['content']
-
-
-    def xiaobing(self,msg):
+    def xiaobing(self, msg):
 
         url_send = 'https://api.weibo.com/webim/2/direct_messages/new.json'
         data = {
@@ -52,9 +51,10 @@ class ChatbotWeb:
         sendMsg = response['text']
 
         # time.sleep(1)
-            
+
         while True:
-            url_get = 'https://api.weibo.com/webim/2/direct_messages/conversation.json?uid={}&source={}'.format(self.uid, self.source)
+            url_get = 'https://api.weibo.com/webim/2/direct_messages/conversation.json?uid={}&source={}'.format(
+                self.uid, self.source)
             response = requests.get(url_get, headers=headers).json()
             getMsg = response['direct_messages'][0]['text']
             if sendMsg == getMsg:
@@ -62,14 +62,15 @@ class ChatbotWeb:
             else:
                 return getMsg
 
-    def chatWithBot(self,inUserSaid):
+    def chatWithBot(self, inUserSaid):
 
         try:
             # res = self.xiaobing(inUserSaid)
             res = self.qingyunke(inUserSaid)
-            return ['chatbot_done',res,'0']
+            return ['chatbot_done', res, '0']
         except:
-            return ['chatbot_done','没听懂你说啥','0']
+            return ['chatbot_done', '没听懂你说啥', '0']
+
 
 if __name__ == "__main__":
     chatbotWeb = ChatbotWeb()
@@ -77,7 +78,6 @@ if __name__ == "__main__":
 #     print(RES[1])
 
     msg = '你的速度好慢'
-    print("me>>",msg)
+    print("me>>", msg)
     res = chatbotWeb.chatWithBot(msg)
-    print("AI>>",res)
-
+    print("AI>>", res)

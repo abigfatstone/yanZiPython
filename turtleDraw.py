@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-import turtle 
+import turtle
 import turtle as t
 import time
 
@@ -18,9 +18,9 @@ class TurtleDraw:
         except Exception as e:
             pass
 
-    def drawPolygon(self,inUserSaid):
+    def drawPolygon(self, inUserSaid):
         sides = eval(input("输入要绘制的边的数目（3-100）:"))
-        turtle.clearscreen() 
+        turtle.clearscreen()
         tpen = turtle.Pen()
 
         turtle.bgcolor("black")
@@ -31,11 +31,10 @@ class TurtleDraw:
             tpen.forward(x * 3 / sides + x)
             tpen.left(360 / sides + 1)
             tpen.width(x * sides / 200)
-        return ['list_function',"drawPolygon Done",'0']
+        return ['list_function', "drawPolygon Done", '0']
 
-
-    def drawName(self,inUserSaid):
-        turtle.clearscreen() 
+    def drawName(self, inUserSaid):
+        turtle.clearscreen()
         tpen = turtle.Pen()
         turtle.bgcolor("black")
 
@@ -48,45 +47,42 @@ class TurtleDraw:
             tpen.pendown()
             tpen.write(my_name, font=("Arial", int((x + 4) / 4), "bold"))
             tpen.left(92)
-        return ['list_function',"drawName Done",'0']
+        return ['list_function', "drawName Done", '0']
 
-    def drawFlower(self,inUserSaid):
-        turtle.clearscreen() 
+    def drawFlower(self, inUserSaid):
+        turtle.clearscreen()
         turtle.bgcolor("black")
-        turtle.color('red','yellow')
+        turtle.color('red', 'yellow')
         turtle.begin_fill()
         while True:
             turtle.forward(200)
             turtle.left(170)
-            if abs(turtle.pos()) <1:
+            if abs(turtle.pos()) < 1:
                 break
         turtle.end_fill()
         turtle.tracer(False)
-        return ['list_function',"drawFlower Done",'0']
+        return ['list_function', "drawFlower Done", '0']
 
-
-    def drawFiveStar(self,inUserSaid):
-        turtle.clearscreen()         
+    def drawFiveStar(self, inUserSaid):
+        turtle.clearscreen()
         turtle.bgcolor("white")
         turtle.pensize(5)
         turtle.pencolor("yellow")
         turtle.fillcolor("red")
-         
+
         turtle.begin_fill()
         for _ in range(5):
-          turtle.forward(200)
-          turtle.right(144)
+            turtle.forward(200)
+            turtle.right(144)
         turtle.end_fill()
-         
+
         turtle.penup()
-        turtle.goto(-150,-120)
+        turtle.goto(-150, -120)
         turtle.color("violet")
         turtle.write("Done", font=('Arial', 40, 'normal'))
-        return ['list_function',"drawFiveStar Done",'0']
+        return ['list_function', "drawFiveStar Done", '0']
 
-
-        
-    def lion(self,inUserSaid):
+    def lion(self, inUserSaid):
 
         def hair():    # 画头发
             t.penup()
@@ -108,7 +104,7 @@ class TurtleDraw:
             t.setheading(180)
             t.circle(85)
             t.end_fill()
-            #下巴
+            # 下巴
             t.circle(85, 120)
             t.fillcolor('white')
             t.begin_fill()
@@ -116,7 +112,7 @@ class TurtleDraw:
             t.setheading(135)
             t.circle(100, 95)
             t.end_fill()
-            
+
         def ears(dir):    # 画眼睛，dir用来设置方向，左右眼对称
             t.penup()
             t.goto((0-dir)*30, 90)
@@ -126,7 +122,7 @@ class TurtleDraw:
             t.begin_fill()
             t.circle(dir*30)
             t.end_fill()
-            
+
             t.penup()
             t.goto((0-dir)*40, 85)
             t.setheading(90)
@@ -135,7 +131,7 @@ class TurtleDraw:
             t.begin_fill()
             t.circle(dir*17)
             t.end_fill()
-            
+
         def nose():    # 画鼻子
             t.penup()
             t.goto(20, 0)
@@ -145,7 +141,7 @@ class TurtleDraw:
             t.begin_fill()
             t.circle(20)
             t.end_fill()
-            
+
         def eye(dir):    # 画耳朵，dir用来设置方向，左右耳对称
             t.penup()
             t.goto((0-dir)*30, 20)
@@ -168,9 +164,9 @@ class TurtleDraw:
             t.goto(0, -50)
             t.setheading(180)
             t.pendown()
-            t.circle(-80, 30)   
+            t.circle(-80, 30)
 
-        t.clearscreen() 
+        t.clearscreen()
         hair()
         ears(1)
         ears(-1)
@@ -179,10 +175,10 @@ class TurtleDraw:
         eye(-1)
         mouth()
         nose()
-        return ['list_function',"drawLion Done",'0']
+        return ['list_function', "drawLion Done", '0']
 
-    def drawpig(self,inUserSaid):
-        t.clearscreen()         
+    def drawpig(self, inUserSaid):
+        t.clearscreen()
         t.pensize(4)
         t.hideturtle()
         t.colormode(255)
@@ -447,4 +443,4 @@ class TurtleDraw:
         t.circle(70, 20)
         t.circle(10, 330)
         t.circle(70, 30)
-        return ['list_function',"drawPolygon Done",'0']
+        return ['list_function', "drawPolygon Done", '0']

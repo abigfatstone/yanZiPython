@@ -6,7 +6,7 @@ python firstScript.py
 #添加pip3源
 pip3 config set global.index-url http://mirrors.aliyun.com/pypi/simple/
 pip3 config set global.trusted-host mirrors.aliyun.com
-
+pip3 config set global.user false
 
 #升级pip
 pip3 install --upgrade pip
@@ -28,8 +28,6 @@ echo "source ~/.bash_profile" >~/.zshrc
 #安装pillow
 pip3 install pillow -i http://mirrors.aliyun.com/pypi/simple/   --trusted-host mirrors.aliyun.com
 
-
-
 #安装brew
 #添加host文件
 sudo echo "199.232.4.133 raw.githubusercontent.com" >>/etc/hosts
@@ -40,7 +38,6 @@ curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install >> 
 
 #安装brew
 ~/Documents/GitHub/yanZiPython/resource/brew_install.sh
-
 
 #出现如下代码时，不用等了，直接关掉命令窗口
 ==> Tapping homebrew/core
@@ -68,5 +65,8 @@ brew install gcc
 
 #安装wordcloud
 pip3 install wordcloud
-
 pip3 install jieba
+pip3 install autopep8
+pip3 install pylint
+
+pip3 freeze > ~/Documents/GitHub/yanZiPython/requirements.txt
