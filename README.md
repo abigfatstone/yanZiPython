@@ -57,7 +57,7 @@ brew update
 
 
 #设置 bintray镜像
-echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.bash_profile
+echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles' >> ~/.bash_profile
 source ~/.bash_profile
 
 #安装gcc
@@ -66,7 +66,3 @@ brew install gcc
 #安装wordcloud
 pip3 install wordcloud
 pip3 install jieba
-pip3 install autopep8
-pip3 install pylint
-
-pip3 freeze > ~/Documents/GitHub/yanZiPython/requirements.txt
