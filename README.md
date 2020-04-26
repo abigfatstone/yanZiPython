@@ -66,3 +66,7 @@ brew install gcc
 #安装wordcloud
 pip3 install wordcloud
 pip3 install jieba
+pip3 install autopep8
+pip3 install pylint
+
+pip3 freeze > ~/Documents/GitHub/yanZiPython/requirements.txt
