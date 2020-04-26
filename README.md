@@ -60,7 +60,7 @@ brew update
 
 
 #设置 bintray镜像
-echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.bash_profile
+echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles' >> ~/.bash_profile
 source ~/.bash_profile
 
 #安装gcc
@@ -70,3 +70,5 @@ brew install gcc
 pip3 install wordcloud
 
 pip3 install jieba
+
+pip freeze > requirement.txt
