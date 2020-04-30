@@ -40,10 +40,11 @@ class Chatbot:
         self.stepID = '0'
         self.isDebug = False
         self.isChat = False
-        self.functionList = '输入“list”，打印功能列表\n输入编号启动相应的问题\n' + \
+        self.functionList = '输入“list”，打印功能列表\n输入编号启动相应的功能\n' + \
                             '[1]启动helloWorld\n[2]计算钟表角度\n[3]计算时钟分钟夹角\n[4]打印9X9乘法表\n' + \
                             '[5]画太阳花\n[6]画五角星\n[7]画多边形\n[8]画狮子\n' + \
-                            '[9]画小猪佩奇\n[10]画名字\n[11]照片转化ASCII\n[12]照片转wordCloud'
+                            '[9]画小猪佩奇\n[10]画名字\n[11]照片转化ASCII\n[12]照片转wordCloud\n' + \
+                            '[13]计算24'
 
         #初始化
         self.helloWorld = HelloWorld()
@@ -84,13 +85,13 @@ class Chatbot:
         #如果用户是在等待功能列表状态，则判断启动哪个功能项    
         elif self.callbackKey == 'list_function':
             if inUserSaid == "1":
-                aiSaid = self.helloWorld.printHelloWorld([inUserSaid,'0'])
+                aiSaid = self.helloWorld.print_hello_world([inUserSaid,'0'])
             elif inUserSaid == '2' :
                 aiSaid = self.clockAngle.calcClockAngle([inUserSaid,'0'])
             elif inUserSaid == '3' :
                 aiSaid = self.clockAngle.calcHourMinute([inUserSaid,'0'])    
             elif inUserSaid == '4' :
-                aiSaid = self.helloWorld.print9X9([inUserSaid,'0'])  
+                aiSaid = self.helloWorld.print_9X9([inUserSaid,'0'])  
             elif inUserSaid == '5' :
                 aiSaid = self.turtleDraw.drawFlower([inUserSaid,'0'])  
             elif inUserSaid == '6' :
@@ -106,7 +107,9 @@ class Chatbot:
             elif inUserSaid == '11' :
                 aiSaid = self.asciiImage.ascii_pic([inUserSaid,'0'])    
             elif inUserSaid == '12' :
-                aiSaid = self.asciiImage.worldCloudTxt([inUserSaid,'0'])                                                          
+                aiSaid = self.asciiImage.worldCloudTxt([inUserSaid,'0'])        
+            elif inUserSaid == '13' :
+                aiSaid = self.helloWorld.calc_24([inUserSaid,'0'])                                                      
             else:
                 #如果不是已知功能列表，则调用聊天程序
                 aiSaid = self.chatAsBackEnd([inUserSaid,'0'])
@@ -114,6 +117,8 @@ class Chatbot:
             aiSaid = self.clockAngle.calcClockAngle([inUserSaid,self.stepID])
         elif self.callbackKey =='calc_hour_minute':
             aiSaid = self.clockAngle.calcHourMinute([inUserSaid,self.stepID])
+        elif self.callbackKey =='calc_24':
+            aiSaid = self.helloWorld.calc_24([inUserSaid,self.stepID])            
         else:
             #如果不是已知状态，则调用聊天程序
             aiSaid = self.chatAsBackEnd([inUserSaid,'0'])
