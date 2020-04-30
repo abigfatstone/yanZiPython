@@ -99,7 +99,7 @@ class Chatbot:
             elif inUserSaid == '7' :
                 aiSaid = self.turtleDraw.drawPolygon([inUserSaid,'0'])      
             elif inUserSaid == '8' :
-                aiSaid = self.turtleDraw.lion([inUserSaid,'0']) 
+                aiSaid = self.turtleDraw.drawLion([inUserSaid,'0']) 
             elif inUserSaid == '9' :
                 aiSaid = self.turtleDraw.drawpig([inUserSaid,'0']) 
             elif inUserSaid == '10' :

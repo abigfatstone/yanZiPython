@@ -16,7 +16,7 @@ class HelloWorld:
         for i in range(20, 10, -1):
             # if i ==3 :
             print("=" * i)
-        return ['list_function', "helloWorld finished", '0']
+        return ['list_function', "helloWorld Done", '0']
 
     def print_9X9(self, inUserSaid):
         # 这句代码值得好好理解，一句代码打印出99乘法表，后续可以考虑作为作业，自己写一段打印99乘法表的代码
@@ -34,7 +34,7 @@ class HelloWorld:
         # 1 4 6 4 1
         # 1 5 10 10 5 1
 
-        return ['list_function', "yanghui delta Done", '0']
+        return ['list_function', "print yanghui delta Done", '0']
 
     def calc_24(self, inUserSaid):
 
@@ -86,4 +86,4 @@ class HelloWorld:
 
 if __name__ == "__main__":
     helloWorld = HelloWorld()
-    helloWorld.calc_24(["5,5,10,10", '0'])
+    helloWorld.calc_24(["5,5,10,10", '1'])

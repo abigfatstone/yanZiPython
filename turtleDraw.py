@@ -82,7 +82,7 @@ class TurtleDraw:
         turtle.write("Done", font=('Arial', 40, 'normal'))
         return ['list_function', "drawFiveStar Done", '0']
 
-    def lion(self, inUserSaid):
+    def drawLion(self, inUserSaid):
 
         def hair():    # 画头发
             t.penup()
