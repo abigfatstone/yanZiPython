@@ -33,6 +33,18 @@ class HelloWorld:
         # 1 3 3 1
         # 1 4 6 4 1
         # 1 5 10 10 5 1
+        list1=[1,1]
+        list2=[]
+        for i in range(1,10):
+            list2=[]
+            list2.append(list1[0])
+            len1=len(list1)
+            for j in range(0,len1-1):
+                list2.append(list1[j]+list1[j+1])
+            list2.append(list1[-1])
+            list1=list2
+            print(list2)
+
 
         return ['list_function', "print yanghui delta Done", '0']
 
@@ -48,7 +60,7 @@ class HelloWorld:
             symbols = ["+", "-", "*", "/"]
 
             list2 = []  # 算出24的排列组合的列表
-
+            ncount=100
             flag = False
             for n in p:
                 one, two, three, four = n
@@ -67,15 +79,16 @@ class HelloWorld:
                                     "{0} {1} (({2} {3} {4}) {5} {6})".format(
                                     one, s1, two, s2, three, s3, four),
                                     "{0} {1} ({2} {3} ({4} {5} {6}))".format(one, s1, two, s2, three, s3, four)]
-
+                            
                             for e in express:
                                 try:
                                     if abs(eval(e)-24) < 0.01:
                                         list2.append(e+" = 24")
+                                        ncount=ncount+2
                                         flag = True
                                 except ZeroDivisionError:
                                     pass
-
+            print(ncount)
             list3 = set(list2)  # 去除重复项
             for c in list3:
                 print(c)
@@ -86,4 +99,4 @@ class HelloWorld:
 
 if __name__ == "__main__":
     helloWorld = HelloWorld()
-    helloWorld.calc_24(["5,5,10,10", '1'])
+    helloWorld.print_yanghui_deleta(["1,2,3,5", '1'])
