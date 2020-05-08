@@ -2,3 +2,6 @@
 .DS_Store
 resource/xiaobing.conf
 .idea/*
+.vscode/settings.json
+.ipynb_checkpoints/*.ipynb
+jupterBook/.ipynb_checkpoints/*.ipynb

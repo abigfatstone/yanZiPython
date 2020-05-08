@@ -2,6 +2,7 @@
 import numpy as np
 from itertools import permutations
 
+
 class HelloWorld:
 
     def print_hello_world(self, inUserSaid):
@@ -33,18 +34,17 @@ class HelloWorld:
         # 1 3 3 1
         # 1 4 6 4 1
         # 1 5 10 10 5 1
-        list1=[1,1]
-        list2=[]
-        for i in range(1,10):
-            list2=[]
+        list1 = [1, 1]
+        list2 = []
+        for i in range(1, 10):
+            list2 = []
             list2.append(list1[0])
-            len1=len(list1)
-            for j in range(0,len1-1):
+            len1 = len(list1)
+            for j in range(0, len1-1):
                 list2.append(list1[j]+list1[j+1])
             list2.append(list1[-1])
-            list1=list2
+            list1 = list2
             print(list2)
-
 
         return ['list_function', "print yanghui delta Done", '0']
 
@@ -53,14 +53,14 @@ class HelloWorld:
         sStep = inUserSaid[1]
         sNumberList = inUserSaid[0]
         if sStep == '0':
-            return ['calc_24', "请输入要计算24的数字，以逗号分隔，比如：1, 2, 3, 4",'1']
+            return ['calc_24', "请输入要计算24的数字，以逗号分隔，比如：1, 2, 3, 4", '1']
         else:
             listNumber = sNumberList.split(",")
             p = [c for c in permutations(listNumber, 4)]
             symbols = ["+", "-", "*", "/"]
 
             list2 = []  # 算出24的排列组合的列表
-            ncount=100
+            ncount = 100
             flag = False
             for n in p:
                 one, two, three, four = n
@@ -71,20 +71,23 @@ class HelloWorld:
                                 express = ["{0} {1} {2} {3} {4} {5} {6}".format(
                                     one, s1, two, s2, three, s3, four)]  # 全加或者乘时，括号已经没有意义。
                             else:
-                                express = ["(({0} {1} {2}) {3} {4}) {5} {6}".format(one, s1, two, s2, three, s3, four),
-                                           "({0} {1} {2}) {3} ({4} {5} {6})".format(
-                                    one, s1, two, s2, three, s3, four),
-                                    "(({0} {1} ({2} {3} {4})) {5} {6})".format(
-                                    one, s1, two, s2, three, s3, four),
-                                    "{0} {1} (({2} {3} {4}) {5} {6})".format(
-                                    one, s1, two, s2, three, s3, four),
-                                    "{0} {1} ({2} {3} ({4} {5} {6}))".format(one, s1, two, s2, three, s3, four)]
-                            
+                                express = []
+                                express.append("(({0} {1} {2}) {3} {4}) {5} {6}".format(
+                                    one, s1, two, s2, three, s3, four))
+                                express.append("({0} {1} {2}) {3} ({4} {5} {6})".format(
+                                    one, s1, two, s2, three, s3, four))
+                                express.append("(({0} {1} ({2} {3} {4})) {5} {6})".format(
+                                    one, s1, two, s2, three, s3, four))
+                                express.append("{0} {1} (({2} {3} {4}) {5} {6})".format(
+                                    one, s1, two, s2, three, s3, four))
+                                express.append("{0} {1} ({2} {3} ({4} {5} {6}))".format(
+                                    one, s1, two, s2, three, s3, four))
+
                             for e in express:
                                 try:
                                     if abs(eval(e)-24) < 0.01:
                                         list2.append(e+" = 24")
-                                        ncount=ncount+2
+                                        ncount = ncount+2
                                         flag = True
                                 except ZeroDivisionError:
                                     pass
@@ -96,6 +99,7 @@ class HelloWorld:
                 print("无法算出")
         return ['list_function', "calc 24 Done", '0']
 
+def 
 
 if __name__ == "__main__":
     helloWorld = HelloWorld()

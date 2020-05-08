@@ -9,7 +9,7 @@ pip3 config set global.trusted-host mirrors.aliyun.com
 pip3 config set global.user false
 
 #升级pip
-pip3 install --upgrade pip
+python -m pip install --upgrade pip
 
 #安装venv
 pip3 install virtualenv -i http://mirrors.aliyun.com/pypi/simple/   --trusted-host mirrors.aliyun.com
@@ -68,5 +68,9 @@ pip3 install wordcloud
 pip3 install jieba
 pip3 install autopep8
 pip3 install pylint
-
 pip3 freeze > ~/Documents/GitHub/yanZiPython/requirements.txt
+
+# 安装jupter notebook
+pip install jupyter
+jupyter notebook 
+
