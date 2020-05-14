@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import numpy as np
+# import pandas as pd
 from itertools import permutations
 
 
@@ -65,6 +66,37 @@ class HelloWorld:
 
         return ['list_function', "print yanghui delta Done", '0']
 
+
+
+    def calc_loan(self,inUserSaid):
+
+        loan = 1000000 # 贷款金额
+        annualRate = 0.04125 # 贷款年利率
+        monthRate = annualRate/12 # 贷款月利率
+        period = 30 # 贷款期限30年
+
+        # 首月应还利息
+        firstMonthInterest = loan*monthRate
+        # 每月应还本息
+        monthPayment = (loan*monthRate*(1+monthRate)**360)/((1+monthRate)**360-1)
+
+        print("等额本息每月应还{}".format(round(monthPayment,2)))
+
+        loanPI = [loan*(1+monthRate)-monthPayment]
+        # 每期应还利息
+        loanInterest = [loan*monthRate]
+        for n in range(1, period*12):
+            loanPI.append((loanPI[n-1]*(1+monthRate)-monthPayment))
+            loanInterest.append(round(loanPI[n-1]*monthRate,2))
+
+        # 每期应还本金
+        loanPrincipal = [monthPayment-loanInterest[n] for n in range(0,len(loanInterest))]
+
+        for n in range(0, period*12):
+            # if n % 12 == 0:
+            #     print("="*20,n//12,"="*20)
+            print('{:<10.2f};{:<10.2f};{:.2f}'.format(loanPI[n],loanInterest[n],loanPrincipal[n]))
+
     def calc_24(self, inUserSaid):
 
         sStep = inUserSaid[1]
@@ -116,8 +148,6 @@ class HelloWorld:
                 print("无法算出")
         return ['list_function', "calc 24 Done", '0']
 
-def 
-
 if __name__ == "__main__":
     helloWorld = HelloWorld()
-    helloWorld.print_yanghui_deleta(["1,2,3,5", '1'])
+    helloWorld.calc_loan(["1,2,3,5", '1'])
