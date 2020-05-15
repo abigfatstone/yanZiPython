@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 import numpy as np
-# import pandas as pd
+import random
 from itertools import permutations
 
 
@@ -21,14 +21,14 @@ class HelloWorld:
         return ['list_function', "helloWorld Done", '0']
 
     # (递归实现)
-    def Perm(self,arrs): 
+    def Perm(self, arrs):
         # 若输入 [1,2,3]，则先取出1，将剩余的 [2,3]全排列得到 [[2,3],[3,2]]，
         #               再将 1加到全排列 [[2,3],[3,2]]上变成 [[1,2,3],[1,3,2]]
         # 同理，取出2或者3时，得到的分别是 [[2,1,3],[2,3,1]]和 [[3,1,2],[3,2,1]]
-        if len(arrs)==1:
+        if len(arrs) == 1:
             return [arrs]
         result = []  # 最终的结果（即全排列的各种情况）
-        for i in range(len(arrs)):  
+        for i in range(len(arrs)):
             rest_arrs = arrs[:i]+arrs[i+1:]  # 取出arrs中的第 i个元素后剩余的元素
             rest_lists = Perm(rest_arrs)   # 剩余的元素完成全排列
             lists = []
@@ -36,7 +36,7 @@ class HelloWorld:
                 lists.append(arrs[i:i+1]+term)  # 将取出的第 i个元素加到剩余全排列的前面
             result += lists
         return result
-        
+
     def print_9X9(self, inUserSaid):
         # 这句代码值得好好理解，一句代码打印出99乘法表，后续可以考虑作为作业，自己写一段打印99乘法表的代码
         print('\n'.join([' '.join('%dx%d=%2d' % (x, y, x*y)
@@ -52,6 +52,7 @@ class HelloWorld:
         # 1 3 3 1
         # 1 4 6 4 1
         # 1 5 10 10 5 1
+
         list1 = [1, 1]
         list2 = []
         for i in range(1, 10):
@@ -66,43 +67,42 @@ class HelloWorld:
 
         return ['list_function', "print yanghui delta Done", '0']
 
-
-
-    def calc_loan(self,inUserSaid):
-
-        loan = 1000000 # 贷款金额
-        annualRate = 0.04125 # 贷款年利率
-        monthRate = annualRate/12 # 贷款月利率
-        period = 30 # 贷款期限30年
+    def calc_loan(self, inUserSaid):
+        loan = 1000000  # 贷款金额
+        annualRate = 0.04125  # 贷款年利率
+        monthRate = annualRate/12  # 贷款月利率
+        period = 30  # 贷款期限30年
 
         # 首月应还利息
         firstMonthInterest = loan*monthRate
         # 每月应还本息
-        monthPayment = (loan*monthRate*(1+monthRate)**360)/((1+monthRate)**360-1)
+        monthPayment = (loan*monthRate*(1+monthRate)**360) / \
+            ((1+monthRate)**360-1)
 
-        print("等额本息每月应还{}".format(round(monthPayment,2)))
+        print("等额本息每月应还{}".format(round(monthPayment, 2)))
 
         loanPI = [loan*(1+monthRate)-monthPayment]
         # 每期应还利息
         loanInterest = [loan*monthRate]
         for n in range(1, period*12):
             loanPI.append((loanPI[n-1]*(1+monthRate)-monthPayment))
-            loanInterest.append(round(loanPI[n-1]*monthRate,2))
+            loanInterest.append(round(loanPI[n-1]*monthRate, 2))
 
         # 每期应还本金
-        loanPrincipal = [monthPayment-loanInterest[n] for n in range(0,len(loanInterest))]
+        loanPrincipal = [monthPayment-loanInterest[n]
+                         for n in range(0, len(loanInterest))]
 
         for n in range(0, period*12):
             # if n % 12 == 0:
             #     print("="*20,n//12,"="*20)
-            print('{:<10.2f};{:<10.2f};{:.2f}'.format(loanPI[n],loanInterest[n],loanPrincipal[n]))
+            print('{:<10.2f};{:<10.2f};{:.2f}'.format(
+                loanPI[n], loanInterest[n], loanPrincipal[n]))
 
     def calc_24(self, inUserSaid):
-
-        sStep = inUserSaid[1]
-        sNumberList = inUserSaid[0]
-        if sStep == '0':
-            return ['calc_24', "请输入要计算24的数字，以逗号分隔，比如：1, 2, 3, 4", '1']
+        stepID = inUserSaid['step_id'] + 1
+        sNumberList = inUserSaid['message']
+        if stepID == 1:
+            returnKey = {'message':"请输入要计算24的数字，以逗号分隔，比如：1, 2, 3, 4",'step_id': stepID}
         else:
             listNumber = sNumberList.split(",")
             p = [c for c in permutations(listNumber, 4)]
@@ -140,14 +140,36 @@ class HelloWorld:
                                         flag = True
                                 except ZeroDivisionError:
                                     pass
-            print(ncount)
+
             list3 = set(list2)  # 去除重复项
-            for c in list3:
-                print(c)
+            returnKey = {'message': '\n'.join(list3), 'step_id': stepID, 'callback_key': 'list_function'}
             if flag == False:
-                print("无法算出")
-        return ['list_function', "calc 24 Done", '0']
+                returnKey = {'message': '无法算出', 'step_id': stepID,'callback_key': 'list_function'}
+        return {**inUserSaid, **returnKey}
+
+    def guess_num(self, inUserSaid):
+        stepID = inUserSaid['step_id'] + 1
+        if stepID == 1:
+            randomNum = random.randint(1, 9)
+            returnKey = {'message':"请在1~99之间猜一个数字",'step_id': stepID, 'randomNum': randomNum}
+        elif stepID > 8:
+            returnKey = {'message': '这么多次都猜不中，智商不在线啊。。。', 'callback_key': 'list_function'}
+        else:
+            randomNum = inUserSaid['randomNum']
+            message = inUserSaid['message']
+            try:
+                if int(message) == randomNum:
+                    returnKey = {'message': '厉害啊，居然被你猜对了！！！', 'callback_key': 'list_function'}
+                elif int(message) > randomNum:
+                    returnKey = {'message': '数字太大了', 'step_id': stepID}
+                elif int(message) < randomNum:
+                    returnKey = {'message': '数字太小了', 'step_id': stepID}
+            except:
+                returnKey = {'message': '输入格式错误', 'step_id': stepID - 1}
+
+        return {**inUserSaid, **returnKey}
+
 
 if __name__ == "__main__":
     helloWorld = HelloWorld()
-    helloWorld.calc_loan(["1,2,3,5", '1'])
+    helloWorld.guess_num({'callbackKey':'guess_num','step_id':0})
