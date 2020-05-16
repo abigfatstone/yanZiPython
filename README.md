@@ -74,3 +74,18 @@ pip3 freeze > ~/Documents/GitHub/yanZiPython/requirements.txt
 pip install jupyter
 jupyter notebook 
 
+
+
+```bash
+export CHATBOT_SECRET_KEY="my-secret-key"
+cd botweb/
+python manage.py makemigrations
+python manage.py migrate
+```
+
+Then, to launch the server locally, use the following commands:
+
+```bash
+cd botweb/
+redis-server &  # Launch Redis in background
+python manage.py runserver

@@ -59,7 +59,7 @@ class Chatbot:
         #     self.chatbotWeb = ChatbotWeb()
 
     def sayHello(self):
-        helloString = '姜彦孜你好，接下来将开始你的python奇妙之旅\n'+self.functionList
+        helloString = '接下来将开始你的python奇妙之旅\n'+self.functionList
         self.aiReturn = {'session_id': self.sessionID, 'callback_key': 'list_function',
                          'step_id': 0, 'message': helloString}
         return self.aiReturn
@@ -79,42 +79,43 @@ class Chatbot:
         return aiReturn
 
     def daemonPredict(self, inUserInput):
-        self.aiReturn['message'] = inUserInput
+        inputMessage = inUserInput['message']
+        self.aiReturn['message'] = inputMessage
         callbackKey = self.aiReturn['callback_key']        
         # 如果用户输入list，则session状态重置，打印功能列表
-        if inUserInput == 'list':
+        if inputMessage == 'list':
             aiReturn = self.listFunction()
         # 如果用户是在等待功能列表状态，则判断启动哪个功能项
         elif callbackKey == 'list_function':
             self.aiReturn['step_id'] = 0
-            if inUserInput == "1":
+            if inputMessage == "1":
                 aiReturn = self.helloWorld.print_hello_world(self.aiReturn)
-            elif inUserInput == '2':
+            elif inputMessage == '2':
                 aiReturn = self.clockAngle.calcClockAngle(self.aiReturn)
-            elif inUserInput == '3':
+            elif inputMessage == '3':
                 aiReturn = self.clockAngle.calcHourMinute(self.aiReturn)
-            elif inUserInput == '4':
+            elif inputMessage == '4':
                 aiReturn = self.helloWorld.print_9X9(self.aiReturn)
-            elif inUserInput == '5':
+            elif inputMessage == '5':
                 aiReturn = self.turtleDraw.drawFlower(self.aiReturn)
-            elif inUserInput == '6':
+            elif inputMessage == '6':
                 aiReturn = self.turtleDraw.drawFiveStar(self.aiReturn)
-            elif inUserInput == '7':
+            elif inputMessage == '7':
                 aiReturn = self.turtleDraw.drawPolygon(self.aiReturn)
-            elif inUserInput == '8':
+            elif inputMessage == '8':
                 aiReturn = self.turtleDraw.drawLion(self.aiReturn)
-            elif inUserInput == '9':
+            elif inputMessage == '9':
                 aiReturn = self.turtleDraw.drawpig(self.aiReturn)
-            elif inUserInput == '10':
+            elif inputMessage == '10':
                 aiReturn = self.turtleDraw.drawName(self.aiReturn)
-            elif inUserInput == '11':
+            elif inputMessage == '11':
                 aiReturn = self.asciiImage.ascii_pic(self.aiReturn)
-            elif inUserInput == '12':
+            elif inputMessage == '12':
                 aiReturn = self.asciiImage.worldCloudTxt(self.aiReturn)
-            elif inUserInput == '13':
+            elif inputMessage == '13':
                 self.aiReturn['callback_key'] = 'calc_24'
                 aiReturn = self.helloWorld.calc_24(self.aiReturn)
-            elif inUserInput == '14':
+            elif inputMessage == '14':
                 self.aiReturn['callback_key'] = 'guess_num'
                 aiReturn = self.helloWorld.guess_num(self.aiReturn)
             else:
@@ -140,14 +141,14 @@ class Chatbot:
         print('{}{}'.format(self.SENTENCES_PREFIX[0], self.aiReturn['message']))
 
         while True:
-            userSaid = input(self.SENTENCES_PREFIX[1])
-            if userSaid.lower() == 'exit':
+            inputMessage = input(self.SENTENCES_PREFIX[1])
+            if inputMessage.lower() == 'exit':
                 # 退出的时候关闭打开的turtle窗口，否则窗口会一直在
                 self.turtleDraw.turtleClose()
                 # 退出程序
                 break
-
-            aiReturn = self.daemonPredict(userSaid)
+            user_input = {'session_id':self.sessionID,'message':inputMessage}
+            aiReturn = self.daemonPredict(user_input)
             print('{}{}'.format(self.SENTENCES_PREFIX[0], aiReturn['message']))
 
 
