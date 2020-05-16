@@ -5,3 +5,4 @@ resource/xiaobing.conf
 .vscode/settings.json
 .ipynb_checkpoints/*.ipynb
 jupterBook/.ipynb_checkpoints/*.ipynb
+botWeb/dump.rdb
