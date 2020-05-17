@@ -6,3 +6,6 @@ resource/xiaobing.conf
 .ipynb_checkpoints/*.ipynb
 jupterBook/.ipynb_checkpoints/*.ipynb
 botWeb/dump.rdb
+dump.rdb
+botWeb/db.sqlite3
+botWeb/db.sqlite3

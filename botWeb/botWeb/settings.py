@@ -70,7 +70,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'botWeb.wsgi.application'
-
+ASGI_APPLICATION = 'botWeb.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -106,11 +106,11 @@ redis_url = os.environ.get('CHATBOT_REDIS_URL', 'localhost')
 
 CHANNEL_LAYERS = {
     'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'BACKEND': 'asgi_redis.RedisChannelLayer',
         'CONFIG': {
             "hosts": [('localhost', 6379)], 
         },
-        "ROUTING": "chatbot_interface.routing.channel_routing",   
+        "ROUTING": "botWeb_interface.routing.channel_routing",   
     },
 }
 

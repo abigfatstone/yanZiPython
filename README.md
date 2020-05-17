@@ -15,7 +15,7 @@ python -m pip install --upgrade pip
 pip3 install virtualenv -i http://mirrors.aliyun.com/pypi/simple/   --trusted-host mirrors.aliyun.com
 
 #初始化venv
-virtualenv -p /usr/local/bin/python3 py3
+virtualenv -p /usr/local/bin/python3 ~/py3
  
 #激活venv
 source ~/py3/bin/activate
@@ -75,6 +75,9 @@ pip install jupyter
 jupyter notebook 
 
 
+pip install daphne
+pip install channels
+pip install django
 
 ```bash
 export CHATBOT_SECRET_KEY="my-secret-key"
@@ -89,3 +92,4 @@ Then, to launch the server locally, use the following commands:
 cd botweb/
 redis-server &  # Launch Redis in background
 python manage.py runserver
+
