@@ -1,9 +1,9 @@
 # -*- coding: UTF-8 -*-
 
-from helloWorld import HelloWorld
-from clockAngle import ClockAngle
-from turtleDraw import TurtleDraw
-from asciiImage import AsciiImage
+from lesson.helloWorld import HelloWorld
+from lesson.clockAngle import ClockAngle
+from lesson.turtleDraw import TurtleDraw
+from lesson.asciiImage import AsciiImage
 import os
 # from chatbotWeb import chatbotWeb  #默认不调用ai聊天
 
@@ -41,7 +41,7 @@ class Chatbot:
         self.SENTENCES_PREFIX = ['AI: ', 'yanZi: ']
         self.sessionID = 'jiangyanzi'
         self.aiReturn = {'session_id': self.sessionID,
-                         'calkback_key': 'first_call', 'step_id': 0}
+                         'callback_key': 'first_call', 'step_id': 0}
         self.isDebug = False
         self.isChat = False
         self.functionList = '输入“list”，打印功能列表\n输入编号启动相应的功能\n' + \
@@ -79,6 +79,9 @@ class Chatbot:
         return aiReturn
 
     def daemonPredict(self, inUserInput):
+        print(inUserInput)
+        print(self.aiReturn)
+        print("="*20)
         inputMessage = inUserInput['message']
         self.aiReturn['message'] = inputMessage
         callbackKey = self.aiReturn['callback_key']        

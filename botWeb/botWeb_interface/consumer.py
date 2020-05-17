@@ -3,8 +3,7 @@ from channels.sessions import channel_session
 import logging
 import sys
 import json
-
-# from .chatbotmanager import ChatbotManager
+from .chatbotmanager import ChatbotManager
 
 
 logger = logging.getLogger(__name__)
@@ -48,8 +47,8 @@ def ws_receive(message):
     # Compute the prediction
     question = data['message']
     try:
-        # answer = ChatbotManager.callBot(question)
-        answer = "dddd"
+        aiReturn = ChatbotManager.callBot({'message':question,'callback_key':'list_function'})
+        answer = aiReturn['message']
     except:  # Catching all possible mistakes
         logger.error('{}: Error with this question {}'.format(clientName, question))
         logger.error("Unexpected error:", sys.exc_info()[0])

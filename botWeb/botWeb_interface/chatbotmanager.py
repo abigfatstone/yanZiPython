@@ -6,7 +6,9 @@ import os
 
 chatbotPath = "/".join(settings.BASE_DIR.split('/')[:-1])
 sys.path.append(chatbotPath)
-# from lesson import firstScript
+print('====================')
+print(chatbotPath)
+from firstScript import Chatbot
 
 logger = logging.getLogger(__name__)
 
@@ -28,14 +30,14 @@ class ChatbotManager(AppConfig):
     def initBot():
         if not ChatbotManager.bot:
             logger.info('Initializing bot...')
-        #     ChatbotManager.bot = firstScript.Chatbot()
-        # else:
-        #     logger.info('Bot already initialized.')
+            ChatbotManager.bot = Chatbot()
+        else:
+            logger.info('Bot already initialized.')
 
     @staticmethod
     def callBot(user_input):
         if ChatbotManager.bot:
-            return "ChatbotManager.bot.daemonPredict(user_input)"
+            return ChatbotManager.bot.daemonPredict(user_input)
         else:
             logger.error('Error: Bot not initialized!')
 
