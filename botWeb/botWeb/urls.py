@@ -23,12 +23,9 @@ Including another URLconf
 # 	url(r'^homepage/$', views.home, name='homepage'),	
 # 	path('admin/', admin.site.urls),]
 
-
-from django.conf.urls import include, url
-from django.contrib import admin
-
+from django.conf.urls import url
+from botWeb_interface import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'', include('botWeb_interface.urls')),
+    url(r'^$', views.mainView),
 ]
