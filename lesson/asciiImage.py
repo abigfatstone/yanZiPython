@@ -1,10 +1,12 @@
-from PIL import Image
-from wordcloud import WordCloud, ImageColorGenerator
-from PIL import Image
-import numpy as np
-import matplotlib.pyplot as plt
-import jieba.analyse
+# -*- coding: UTF-8 -*-
+
 import os
+from PIL import Image
+
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud, ImageColorGenerator
+import numpy as np
+import jieba.analyse
 
 
 def isimage(fn):
@@ -31,54 +33,50 @@ class AsciiImage:
         # 初始化文件ID
         fileID = 0
         fileList = ['']
+        returnList = ["文件夹" + dirname + '当前有以下图片文件：']
         for filename in os.listdir(os.path.dirname(dirname)):
             # 遍历所有的文件，如果是图片类型，则将文件放进列表并打印在屏幕上。
             if self.isFileType(filename, filetype):
                 fileID = fileID + 1
-                print('[{}]{}'.format(fileID, filename))
+                returnList.append('[{}]{}'.format(fileID, filename))
                 fileList.append(dirname + filename)
-        return fileList
+        return fileList, returnList
 
     def ascii_pic(self, inUserSaid):
-        # 设置resource文件夹路径
-        resourceDIR = os.path.dirname(os.path.abspath(__file__)) + '/resource/'
 
-        print("如果有新的图片需要转换，请将图片文件拷贝至文件夹" + resourceDIR)
-        print("文件夹" + resourceDIR + '当前有以下图片文件：')
-
-        # 初始化文件ID
-        fileID = 0
-        # 由于list的起始角标是0，为了便于理解，对于角标0放入一个空文件名，这样后面新加入的图片文件的编号（角标）可以从1开始。
-        fileToAsciiList = ['']
-        for filename in os.listdir(os.path.dirname(resourceDIR)):
-            # 遍历所有的文件，如果是图片类型，则将文件放进列表并打印在屏幕上。
-            if isimage(filename):
-                fileID = fileID + 1
-                print('[{}]{}'.format(fileID, filename))
-                fileToAsciiList.append(resourceDIR + filename)
-
-        # 要求输入文件编号，并转化为数字类型
-        file2AsciiID = eval(input("请输入要转换的文件编号:"))
         WIDTH = 80
         HEIGHT = 40
 
-        try:
-            # 读取指定编号的文件
-            im = Image.open(fileToAsciiList[file2AsciiID])
-            # 把图片resize
-            im = im.resize((WIDTH, HEIGHT), Image.NEAREST)
+        # 设置resource文件夹路径
+        resourceDIR = os.path.dirname(os.path.abspath(__file__)) + '/../../resource/'
+        stepID = inUserSaid['step_id'] + 1
+        if stepID == 1:
+            file_list, message = self.listFileType(
+                resourceDIR, ['.jpg', '.png'])
+            message.append("请输入要转换的文件编号:")
+            returnKey = {'message': '\n'.join(message),
+                         'step_id': stepID, 'file_list': file_list}
+        elif stepID == 2:
+            try:
+                file2AsciiID = int(inUserSaid['message'])
+                fileToAsciiList = inUserSaid['file_list']
+                # 读取指定编号的文件
+                im = Image.open(fileToAsciiList[file2AsciiID])
+                # 把图片resize
+                im = im.resize((WIDTH, HEIGHT), Image.NEAREST)
+                txt = ""
+                for i in range(HEIGHT):
+                    for j in range(WIDTH):
+                        # 转换为字符类型
+                        txt += self.get_char(*im.getpixel((j, i)))
+                    txt += '\n'
+                returnKey = {'callback_list': 'list_function',
+                             'step_id': stepID, 'message': txt}
+            except:
+                returnKey = {'callback_list': 'list_function',
+                             'step_id': 0, 'message': "文件编号输入错误"}
 
-            txt = ""
-
-            for i in range(HEIGHT):
-                for j in range(WIDTH):
-                    # 转换为字符类型
-                    txt += self.get_char(*im.getpixel((j, i)))
-                txt += '\n'
-            print(txt)
-            return ['list_function', "AsciiImage Done", '0']
-        except:
-            return ['call_done', "文件编号输入错误", '0']
+        return {**inUserSaid, **returnKey}
 
     def worldCloudTxt(self, inUserSaid):
         resourceDIR = os.path.dirname(os.path.abspath(__file__)) + '/resource/'

@@ -7,23 +7,23 @@ from itertools import permutations
 class HelloWorld:
 
     def print_hello_world(self, inUserSaid):
-        print("they are autism spectrum disorder!!!")
-        print(4 + 2 - (111/42))
-        print(4 + 2.0 - (111/42))
-        print(4 + 2.0 - (111/42.0))
-        print("="*11 + '\n' + "=" + " " * 9 +
+        return_list = []
+        return_list.append("they are autism spectrum disorder!!!")
+        return_list.append(4 + 2 - (111/42))
+        return_list.append(4 + 2.0 - (111/42))
+        return_list.append(4 + 2.0 - (111/42.0))
+        return_list.append("="*11 + '\n' + "=" + " " * 9 +
               "我要学编程" + " " * 9 + "=" + '\n' + "="*30)
-        print(" " * 8+"我要学编程")
-        print("我要学跳舞")
+        return_list.append(" " * 8+"我要学编程")
+        return_list.append("我要学跳舞")
         for i in range(20, 10, -1):
             # if i ==3 :
-            print("=" * i)
-        return ['list_function', "helloWorld Done", '0']
-
+            return_list.append("=" * i)
+        return {**inUserSaid, **{'callback_key':'list_function', 'message':return_list}}
     # (递归实现)
     def Perm(self, arrs):
         # 若输入 [1,2,3]，则先取出1，将剩余的 [2,3]全排列得到 [[2,3],[3,2]]，
-        #               再将 1加到全排列 [[2,3],[3,2]]上变成 [[1,2,3],[1,3,2]]
+        # 再将 1加到全排列 [[2,3],[3,2]]上变成 [[1,2,3],[1,3,2]]
         # 同理，取出2或者3时，得到的分别是 [[2,1,3],[2,3,1]]和 [[3,1,2],[3,2,1]]
         if len(arrs) == 1:
             return [arrs]
@@ -39,10 +39,16 @@ class HelloWorld:
 
     def print_9X9(self, inUserSaid):
         # 这句代码值得好好理解，一句代码打印出99乘法表，后续可以考虑作为作业，自己写一段打印99乘法表的代码
-        print('\n'.join([' '.join('%dx%d=%2d' % (x, y, x*y)
-                                  for x in range(1, y+1)) for y in range(1, 10)]))
+        return_message = '\n'.join([' '.join('%dx%d=%2d' % (x, y, x*y)
+                                  for x in range(1, y+1)) for y in range(1, 10)])
+        returnKey = {'message': return_message, 'callback_key': 'list_function'}
+        return {**inUserSaid, **returnKey}
 
-        return ['list_function', "9X9 Done", '0']
+    def num_to_str(self,numList):
+        tmp = ''
+        for num in numList:
+            tmp = tmp + str(num) +' '
+        return tmp.strip()
 
     def print_yanghui_deleta(self, inUserSaid):
         # 打印杨辉三角
@@ -52,9 +58,9 @@ class HelloWorld:
         # 1 3 3 1
         # 1 4 6 4 1
         # 1 5 10 10 5 1
-
         list1 = [1, 1]
         list2 = []
+        listReturn = ['','1','1 1']
         for i in range(1, 10):
             list2 = []
             list2.append(list1[0])
@@ -63,9 +69,9 @@ class HelloWorld:
                 list2.append(list1[j]+list1[j+1])
             list2.append(list1[-1])
             list1 = list2
-            print(list2)
-
-        return ['list_function', "print yanghui delta Done", '0']
+            listReturn.append(self.num_to_str(list2))
+        returnKey = {'message': '\n'.join(listReturn), 'callback_key': 'list_function'}
+        return {**inUserSaid, **returnKey}        
 
     def calc_loan(self, inUserSaid):
         loan = 1000000  # 贷款金额
@@ -102,9 +108,9 @@ class HelloWorld:
         stepID = inUserSaid['step_id'] + 1
         sNumberList = inUserSaid['message']
         if stepID == 1:
-            returnKey = {'message':"请输入要计算24的数字，以逗号分隔，比如：1, 2, 3, 4",'step_id': stepID}
+            returnKey = {'message':"请输入要计算24的数字，以“-”分隔，比如：1-2-3-4",'step_id': stepID}
         else:
-            listNumber = sNumberList.split(",")
+            listNumber = sNumberList.split("-")
             p = [c for c in permutations(listNumber, 4)]
             symbols = ["+", "-", "*", "/"]
 
