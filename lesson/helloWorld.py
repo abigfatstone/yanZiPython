@@ -156,7 +156,7 @@ class HelloWorld:
     def guess_num(self, inUserSaid):
         stepID = inUserSaid['step_id'] + 1
         if stepID == 1:
-            randomNum = random.randint(1, 9)
+            randomNum = random.randint(1, 99)
             returnKey = {'message':"请在1~99之间猜一个数字",'step_id': stepID, 'randomNum': randomNum}
         elif stepID > 8:
             returnKey = {'message': '这么多次都猜不中，智商不在线啊。。。', 'callback_key': 'list_function'}
