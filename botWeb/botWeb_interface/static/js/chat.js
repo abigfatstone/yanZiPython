@@ -10,8 +10,8 @@ $(function() {
     
     chatsock.onmessage = function(message) {
         var data = JSON.parse(message.data);
-        chat_zone.prepend(
-            $("<p class='answer'></p>").text('AI: ' + data.message)
+        chat_zone.append(
+            $("<p class='answer'></p>").html('AI: ' + data.message)
         );
     };
 
@@ -30,7 +30,7 @@ $(function() {
                 message_elem.val('').focus();
 
                 // Add the message to the chat
-                chat_zone.prepend(
+                chat_zone.append(
                     $("<p class='question'></p>").text('Me: ' + message_val)
                 );
             }

@@ -46,9 +46,12 @@ def ws_receive(message):
 
     # Compute the prediction
     question = data['message']
+    answer  = ''
     try:
         aiReturn = ChatbotManager.callBot({'message':question,'callback_key':'list_function'})
-        answer = aiReturn['message']
+        for lineAnswer in aiReturn['message'].split('\n'):
+            answer = answer +'<p>'+lineAnswer +'</p>'
+        # answer = aiReturn['message']
     except:  # Catching all possible mistakes
         logger.error('{}: Error with this question {}'.format(clientName, question))
         logger.error("Unexpected error:", sys.exc_info()[0])
