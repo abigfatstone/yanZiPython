@@ -33,7 +33,7 @@ class AsciiImage:
         # 初始化文件ID
         fileID = 0
         fileList = ['']
-        returnList = ["文件夹" + dirname + '当前有以下图片文件：']
+        returnList = ["文件夹:" + dirname + '有以下图片文件：']
         for filename in os.listdir(os.path.dirname(dirname)):
             # 遍历所有的文件，如果是图片类型，则将文件放进列表并打印在屏幕上。
             if self.isFileType(filename, filetype):
@@ -44,11 +44,12 @@ class AsciiImage:
 
     def ascii_pic(self, inUserSaid):
 
-        WIDTH = 80
-        HEIGHT = 40
+        WIDTH = 60
+        HEIGHT = 30
 
         # 设置resource文件夹路径
-        resourceDIR = os.path.dirname(os.path.abspath(__file__)) + '/../../resource/'
+        resourceDIR = "/".join(os.path.dirname(os.path.abspath(__file__)).split('/')[:-2])+ '/resource/'
+
         stepID = inUserSaid['step_id'] + 1
         if stepID == 1:
             file_list, message = self.listFileType(
@@ -70,10 +71,10 @@ class AsciiImage:
                         # 转换为字符类型
                         txt += self.get_char(*im.getpixel((j, i)))
                     txt += '\n'
-                returnKey = {'callback_list': 'list_function',
+                returnKey = {'callback_key': 'list_function',
                              'step_id': stepID, 'message': txt}
             except:
-                returnKey = {'callback_list': 'list_function',
+                returnKey = {'callback_key': 'list_function',
                              'step_id': 0, 'message': "文件编号输入错误"}
 
         return {**inUserSaid, **returnKey}
@@ -138,4 +139,4 @@ class AsciiImage:
 
 if __name__ == "__main__":
     asciiImage = AsciiImage()
-    asciiImage.worldCloudTxt("ggg")
+    asciiImage.ascii_pic({'message':"ggg"})

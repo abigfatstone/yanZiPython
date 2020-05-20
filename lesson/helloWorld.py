@@ -9,17 +9,17 @@ class HelloWorld:
     def print_hello_world(self, inUserSaid):
         return_list = []
         return_list.append("they are autism spectrum disorder!!!")
-        return_list.append(4 + 2 - (111/42))
-        return_list.append(4 + 2.0 - (111/42))
-        return_list.append(4 + 2.0 - (111/42.0))
-        return_list.append("="*11 + '\n' + "=" + " " * 9 +
+        return_list.append('{}'.format(4 + 2 - (111/42)))
+        return_list.append('{}'.format(4 + 2.0 - (111/42)))
+        return_list.append('{}'.format(4 + 2.0 - (111/42.0)))
+        return_list.append("="*30 + '\n' + "=" + " " * 9 +
               "我要学编程" + " " * 9 + "=" + '\n' + "="*30)
         return_list.append(" " * 8+"我要学编程")
         return_list.append("我要学跳舞")
         for i in range(20, 10, -1):
             # if i ==3 :
-            return_list.append("=" * i)
-        return {**inUserSaid, **{'callback_key':'list_function', 'message':return_list}}
+            return_list.append("=" * i) 
+        return {**inUserSaid, **{'callback_key':'list_function', 'message':'\n'.join(return_list)}}
     # (递归实现)
     def Perm(self, arrs):
         # 若输入 [1,2,3]，则先取出1，将剩余的 [2,3]全排列得到 [[2,3],[3,2]]，
@@ -178,4 +178,5 @@ class HelloWorld:
 
 if __name__ == "__main__":
     helloWorld = HelloWorld()
-    helloWorld.guess_num({'callbackKey':'guess_num','step_id':0})
+    ai=helloWorld.print_hello_world({'callbackKey':'guess_num','step_id':0})
+    print(ai['message'])

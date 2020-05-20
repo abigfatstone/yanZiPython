@@ -47,7 +47,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         try:
             aiReturn = ChatbotManager.callBot(
                 {'message': question, 'callback_key': 'list_function'})
-            print(question, '->', aiReturn['message'])
+            print(aiReturn)
             answer = formathtml(aiReturn['message'])
         except:  # Catching all possible mistakes
             logger.error("Unexpected error:")
