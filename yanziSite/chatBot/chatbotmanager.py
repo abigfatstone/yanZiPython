@@ -6,15 +6,13 @@ import os
 
 chatbotPath = "/".join(settings.BASE_DIR.split('/')[:-1])
 sys.path.append(chatbotPath)
-print('====================')
-print(chatbotPath)
 from firstScript import Chatbot
 
 logger = logging.getLogger(__name__)
 
 
 class ChatbotManager(AppConfig):
-    name = 'botWeb_interface'
+    name = 'chatBot'
     verbose_name = 'Chatbot Interface'
 
     bot = None

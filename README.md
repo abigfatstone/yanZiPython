@@ -48,27 +48,32 @@ python -m pip install --upgrade pip
 pip3 install virtualenv -i http://mirrors.aliyun.com/pypi/simple/   --trusted-host mirrors.aliyun.com
 
 # 初始化venv
-# rm -rf ~/venv/py3.6
-virtualenv -p /usr/local/bin/python3.6 ~/venv/py3.6
-source ~/venv/py3.6/bin/activate
+# rm -rf ~/venv/py3.8
+virtualenv -p /usr/local/bin/python3.8 ~/venv/py3.8
+source ~/venv/py3.8/bin/activate
 pip install -r ~/Documents/GitHub/yanZiPython/requirements.txt
 
 # soft link py3 
 cd ~/venv
-ln -s py3.7 py3
+ln -s py3.8 py3
 
 # 激活venv
 source ~/venv/py3.8/bin/activate
 
 # 修改~/.bash_profile，增加：
-echo "source ~/venv/py3/bin/activate" >~/.bash_profile
+echo "source ~/venv/py3/bin/activate" >>~/.bash_profile
 echo "source ~/.bash_profile" >~/.zshrc
 
 # 
 pip3 freeze > ~/Documents/GitHub/yanZiPython/requirements.txt
 
-# jupter notebook
-jupyter notebook 
+# 安装node.js
+brew install node.js
+
+# 安装前端插件
+jupyter labextension install @jupyterlab/debugger
+# 启动lab
+jupyter lab 
 
 # 启动网页
 export CHATBOT_SECRET_KEY="my-secret-key"

@@ -1,16 +1,14 @@
-# Django==1.11.29
-# asgiref==1.1.2
-# asgi-redis==1.4.3
-# channels==1.1.6
-
 Django
 channels
 channels_redis
-# jieba
-# pillow
-# numpy
-# wordcloud
-# matplotlib
-# autopep8
-# pylint
-# jupyter-lab
+jieba
+pillow
+numpy
+wordcloud
+matplotlib
+autopep8
+pylint
+jupyterlab
+xeus-python
+ptvsd
+ipython

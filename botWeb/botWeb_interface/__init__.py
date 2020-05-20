@@ -1,1 +1,0 @@
-default_app_config = 'botWeb_interface.chatbotmanager.ChatbotManager'

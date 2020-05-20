@@ -5,9 +5,14 @@ $(function() {
     // When using HTTPS, use WSS too.
     var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
     var chat_zone = $("#chat_zone");   
-    var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chat");
+    // var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chatbot");
 
-    
+    var chatsock = new ReconnectingWebSocket(
+        'ws://' +
+        window.location.host +
+        '/ws/chatbot/jiangyanzi/'
+    );
+
     chatsock.onmessage = function(message) {
         var data = JSON.parse(message.data);
         chat_zone.append(
