@@ -8,6 +8,18 @@ from .chatbotmanager import ChatbotManager
 
 logger = logging.getLogger(__name__)
 
+def formathtml(input_list):
+    return_str = '<p>'
+    for line_char in input_list:
+        if line_char == '\n':
+            return_str += '</p><p>'
+        elif line_char == ' ':
+            return_str += '&nbsp;'
+        else:
+            return_str += line_char
+    return_str += '</p>'
+    return return_str
+
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
@@ -31,13 +43,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         question = text_data_json['message']
-        answer  = ''
+        answer = ''
         try:
-            aiReturn = ChatbotManager.callBot({'message':question,'callback_key':'list_function'})
-            print(question,'->',aiReturn['message'])
-            for lineAnswer in aiReturn['message'].split('\n'):
-                answer = answer +'<p>'+lineAnswer +'</p>'
-            # answer = aiReturn['message']
+            aiReturn = ChatbotManager.callBot(
+                {'message': question, 'callback_key': 'list_function'})
+            print(question, '->', aiReturn['message'])
+            answer = formathtml(aiReturn['message'])
         except:  # Catching all possible mistakes
             logger.error("Unexpected error:")
             answer = 'Error: Internal problem'
@@ -59,4 +70,3 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send(text_data=json.dumps({
             'message': message
         }))
-

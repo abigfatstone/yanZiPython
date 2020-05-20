@@ -55,6 +55,7 @@ pip install -r ~/Documents/GitHub/yanZiPython/requirements.txt
 
 # soft link py3 
 cd ~/venv
+rm py3
 ln -s py3.8 py3
 
 # 激活venv

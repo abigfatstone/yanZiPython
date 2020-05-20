@@ -49,7 +49,7 @@ class Chatbot:
         # '\t\n'+ \
 
         fList = []
-        fList.append("输入“list”，打印功能列表;输入编号启动相应的功能")
+        fList.append("输入“list”，显示功能列表")
         fList.append("[1]helloWorld")
         fList.append("[2]计算钟表角度")
         fList.append("[3]计算时钟夹角")
@@ -65,6 +65,7 @@ class Chatbot:
         fList.append("[13]计算24")
         fList.append("[14]猜数字")   
         fList.append("[15]打印杨辉三角")     
+        fList.append("输入编号启动相应功能")     
         self.functionList ='\n'.join(fList)
 
         # 初始化
