@@ -44,6 +44,30 @@ class HelloWorld:
         returnKey = {'message': '\n'+return_message, 'callback_key': 'list_function'}
         return {**inUserSaid, **returnKey}
 
+    def split_zys(self, inUserSaid):
+        stepID = inUserSaid['step_id'] + 1
+        sNumberList = inUserSaid['message']
+        if stepID == 1:
+            returnKey = {'message':"请输入质因数的数字",'step_id': stepID}
+        else:
+            #分解质因数
+            return_message = []
+            def ac(n):
+                i=1
+                for i in range(2,n+1):
+                    if n % i == 0:
+                        break      
+                return int(n // i)
+        
+            n = int(inUserSaid['message'])
+            nNew = n
+            while n > 1:
+                nNew = ac(n)
+                return_message.append(str(n//nNew))
+                n = nNew
+            returnKey = {'message': ','.join(return_message), 'callback_key': 'list_function'}
+        return {**inUserSaid, **returnKey}    
+
     def num_to_str(self,numList):
         tmp = ''
         for num in numList:
@@ -178,5 +202,5 @@ class HelloWorld:
 
 if __name__ == "__main__":
     helloWorld = HelloWorld()
-    ai=helloWorld.print_hello_world({'callbackKey':'guess_num','step_id':0})
+    ai=helloWorld.split_zys({'callbackKey':'guess_num','step_id':0})
     print(ai['message'])
