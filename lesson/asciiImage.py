@@ -39,7 +39,7 @@ class AsciiImage:
         # 初始化文件ID
         fileID = 0
         fileList = ['']
-        returnList = ["文件夹" + dirname + '有以下图片文件:']
+        returnList = ["文件夹" + dirname + '有以下文件:']
         for filename in os.listdir(os.path.dirname(dirname)):
             # 遍历所有的文件，如果是图片类型，则将文件放进列表并打印在屏幕上。
             if self.isFileType(filename, filetype):
