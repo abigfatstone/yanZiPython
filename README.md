@@ -75,6 +75,9 @@ brew install node.js
 jupyter labextension install @jupyterlab/debugger
 # 启动lab
 jupyter lab 
+ 
+# 拷贝字体文件
+scp /System/Library/fonts/PingFang.ttc root@host1://System/Library/fonts/
 
 # 启动网页
 export CHATBOT_SECRET_KEY="my-secret-key"

@@ -24,8 +24,7 @@ class ChatbotWeb:
 
     def qingyunke(self, inUserSaid):
         target = r'http://api.qingyunke.com/api.php?key=free&appid=0&msg='
-
-        tmp = target + inUserSaid[0]
+        tmp = target + inUserSaid
         url = urllib.parse.quote(tmp, safe=string.printable)
         page = urllib.request.urlopen(url)
 
@@ -33,6 +32,7 @@ class ChatbotWeb:
         # json转为dict,json.loads 用于解码 JSON 数据。该函数返回 Python 字段的数据类型
         res = json.loads(html)
         return res['content']
+
     def xiaobing(self, msg):
 
         url_send = 'https://api.weibo.com/webim/2/direct_messages/new.json'
@@ -66,10 +66,10 @@ class ChatbotWeb:
 
         try:
             # res = self.xiaobing(inUserSaid)
-            res = self.qingyunke(inUserSaid)
-            return ['chatbot_done', res, '0']
+            res = self.qingyunke(inUserSaid['message'])
+            return {'message': res, 'callback_key': 'list_function', 'step_id': 0}
         except:
-            return ['chatbot_done', '没听懂你说啥', '0']
+            return {'message': '输入list试试看吧', 'callback_key': 'list_function', 'step_id': 0}
 
 
 if __name__ == "__main__":
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 #     RES = chatbotWeb.chat("你好")
 #     print(RES[1])
 
-    msg = '你的速度好慢'
+    msg = {'message': '你的速度好慢'}
     print("me>>", msg)
     res = chatbotWeb.chatWithBot(msg)
     print("AI>>", res)

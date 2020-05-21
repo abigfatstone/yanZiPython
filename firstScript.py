@@ -4,9 +4,8 @@ from lesson.helloWorld import HelloWorld
 from lesson.clockAngle import ClockAngle
 from lesson.turtleDraw import TurtleDraw
 from lesson.asciiImage import AsciiImage
+from lesson.chatbotWeb import ChatbotWeb 
 import os
-# from chatbotWeb import chatbotWeb  #默认不调用ai聊天
-
 
 class Chatbot:
 
@@ -43,7 +42,7 @@ class Chatbot:
         self.aiReturn = {'session_id': self.sessionID,
                          'callback_key': 'first_call', 'step_id': 0}
         self.isDebug = False
-        self.isChat = False
+        self.isChat = True
     
         fList = []
         fList.append("输入“list”，显示功能列表")
@@ -70,8 +69,8 @@ class Chatbot:
         self.clockAngle = ClockAngle()
         self.turtleDraw = TurtleDraw()
         self.asciiImage = AsciiImage()
-        # if self.isChat:
-        #     self.chatbotWeb = ChatbotWeb()
+        if self.isChat:
+            self.chatbotWeb = ChatbotWeb()
 
     def sayHello(self):
         helloString = '接下来将开始你的python奇妙之旅\n'+self.functionList
@@ -86,11 +85,11 @@ class Chatbot:
 
     def chatAsBackEnd(self, inUserInput):
         # 性能考虑，默认关闭ai聊天，返回功能列表
-        # if self.isChat:
-        #     aiReturn = self.chatbotWeb.chatWithBot(inUserInput)
-        # else:
-        #     aiReturn = self.listFunction()
-        aiReturn = self.listFunction()
+        if self.isChat:
+            aiReturn = self.chatbotWeb.chatWithBot(inUserInput)
+        else:
+            aiReturn = self.listFunction()
+
         return aiReturn
 
     def daemonPredict(self, inUserInput):
@@ -101,7 +100,7 @@ class Chatbot:
         self.aiReturn['message'] = inputMessage
         callbackKey = self.aiReturn['callback_key']        
         # 如果用户输入list，则session状态重置，打印功能列表
-        if inputMessage == 'list':
+        if inputMessage.lower() == 'list':
             aiReturn = self.listFunction()
         # 如果用户是在等待功能列表状态，则判断启动哪个功能项
         elif callbackKey == 'list_function':
