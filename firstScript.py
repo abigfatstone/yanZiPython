@@ -44,10 +44,7 @@ class Chatbot:
                          'callback_key': 'first_call', 'step_id': 0}
         self.isDebug = False
         self.isChat = False
-        
-        # '\t\t\t\n' + \
-        # '\t\n'+ \
-
+    
         fList = []
         fList.append("输入“list”，显示功能列表")
         fList.append("[1]helloWorld")
@@ -133,6 +130,7 @@ class Chatbot:
                 self.aiReturn['callback_key'] = 'ascii_pic'
                 aiReturn = self.asciiImage.ascii_pic(self.aiReturn)
             elif inputMessage == '12':
+                self.aiReturn['callback_key'] = 'worldCloudTxt'
                 aiReturn = self.asciiImage.worldCloudTxt(self.aiReturn)
             elif inputMessage == '13':
                 self.aiReturn['callback_key'] = 'calc_24'
@@ -146,7 +144,9 @@ class Chatbot:
                 # 如果不是已知功能列表，则调用聊天程序
                 aiReturn = self.chatAsBackEnd(self.aiReturn)
         elif callbackKey == 'ascii_pic':
-            aiReturn = self.asciiImage.ascii_pic(self.aiReturn)                
+            aiReturn = self.asciiImage.ascii_pic(self.aiReturn)  
+        elif callbackKey == 'worldCloudTxt':
+            aiReturn = self.asciiImage.worldCloudTxt(self.aiReturn)                           
         elif callbackKey == 'calc_clock_angle':
             aiReturn = self.clockAngle.calcClockAngle(self.aiReturn)
         elif callbackKey == 'calc_hour_minute':
