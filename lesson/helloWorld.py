@@ -41,7 +41,7 @@ class HelloWorld:
         # 这句代码值得好好理解，一句代码打印出99乘法表，后续可以考虑作为作业，自己写一段打印99乘法表的代码
         return_message = '\n'.join([' '.join('%dx%d=%2d' % (x, y, x*y)
                                   for x in range(1, y+1)) for y in range(1, 10)])
-        returnKey = {'message': return_message, 'callback_key': 'list_function'}
+        returnKey = {'message': '\n'+return_message, 'callback_key': 'list_function'}
         return {**inUserSaid, **returnKey}
 
     def num_to_str(self,numList):

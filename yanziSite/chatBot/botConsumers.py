@@ -9,10 +9,15 @@ from .chatbotmanager import ChatbotManager
 logger = logging.getLogger(__name__)
 
 def formathtml(input_list):
-    return_str = '<p>'
+    nLine = 0
+    return_str = ''
     for line_char in input_list:
         if line_char == '\n':
-            return_str += '</p><p>'
+            nLine += 1
+            if nLine == 1:
+                return_str += '<p>'
+            else:    
+                return_str += '</p><p>'
         elif line_char == ' ':
             return_str += '&nbsp;'
         else:
