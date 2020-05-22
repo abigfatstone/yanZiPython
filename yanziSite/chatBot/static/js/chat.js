@@ -1,16 +1,25 @@
 // Credits goes to https://blog.heroku.com/in_deep_with_django_channels_the_future_of_real_time_apps_in_django
 
+function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    var uid_null = Math.floor(Math.random()*1000000);  
+    if (r != null) return unescape(r[2]); return uid_null.toString();
+}
+
 $(function() {
 
     // When using HTTPS, use WSS too.
     var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
     var chat_zone = $("#chat_zone");   
     // var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chatbot");
-
+    var session_id = getQueryString('userid')
+    var session_id = 'userid'
     var chatsock = new ReconnectingWebSocket(
         'ws://' +
         window.location.host +
-        '/ws/chatbot/jiangyanzi/'
+        '/ws/chatbot/' +
+         session_id + '_' + getQueryString('userid')+'/'
     );
 
     chatsock.onmessage = function(message) {
