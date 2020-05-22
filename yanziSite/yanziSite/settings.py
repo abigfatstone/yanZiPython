@@ -128,7 +128,6 @@ USE_TZ = True
 
 FILE_PATH = os.path.dirname(os.path.abspath(__file__))
 BASE_HOME = "/".join(FILE_PATH.split('/')[:-3])
-print(BASE_HOME)
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = ([os.path.join(BASE_HOME, 'output')]

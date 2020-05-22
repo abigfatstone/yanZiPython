@@ -38,7 +38,7 @@ class Chatbot:
 
         # 设置系统变量
         self.SENTENCES_PREFIX = ['AI: ', 'yanZi: ']
-        self.sessionID = 'jiangyanzi'
+        self.sessionID = 'yanzi'
         self.aiReturn = {'session_id': self.sessionID,
                          'callback_key': 'first_call', 'step_id': 0}
         self.isDebug = False
@@ -97,6 +97,7 @@ class Chatbot:
         # print(inUserInput)
         # print(self.aiReturn)
         # print("="*20)
+        self.sessionID = inUserInput['session_id']
         inputMessage = inUserInput['message']
         self.aiReturn['message'] = inputMessage
         callbackKey = self.aiReturn['callback_key']        
@@ -163,6 +164,7 @@ class Chatbot:
         else:
             # 如果不是已知状态，则调用聊天程序
             aiReturn = self.chatAsBackEnd(self.aiReturn)
+            
         self.aiReturn = aiReturn
         return aiReturn
 
