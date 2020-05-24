@@ -4,9 +4,9 @@ import sys
 import json
 
 from .chatbotmanager import ChatbotManager
-from .formatHtml import format_html
 
 logger = logging.getLogger(__name__)
+
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -31,30 +31,36 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         question = text_data_json['message']
-        # session_id = text_data_json['userID']
+        questiion_type = text_data_json['type']
+        client_type = text_data_json['client_type']
         session_id = self.room_name
+
         try:
-            aiReturn = ChatbotManager.callBot(
-                    {'message': question, 'callback_key': 'list_function', 'session_id': session_id})
-            print(aiReturn)        
-            answer = format_html(aiReturn['message'])
+            answer = ChatbotManager.callBot(
+                {'message': question,
+                 'callback_key': 'list_function',
+                 'session_id': session_id,
+                 'question_type': questiion_type,
+                 'client_type': client_type})
         except:
-            answer = 'error:internal error'
+            answer['message'] = 'error:internal error'
 
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': answer
+                'answer': answer,
             }
         )
 
     # Receive message from room group
     async def chat_message(self, event):
-        message = event['message']
-
+        print(event)
+        answer = event['answer']
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
-            'message': message, 'type': 'text','session_id':self.room_name
+            'message': answer['message'],
+            'type': answer['answer_type'],
+            'session_id': self.room_name
         }))

@@ -3,15 +3,16 @@
 function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
     var r = window.location.search.substr(1).match(reg);
-    var uid_null = Math.floor(Math.random()*1000000);  
-    if (r != null) return unescape(r[2]); return uid_null.toString();
+    var uid_null = Math.floor(Math.random() * 1000000);
+    if (r != null) return unescape(r[2]);
+    return uid_null.toString();
 }
 
 $(function() {
 
     // When using HTTPS, use WSS too.
     var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-    var chat_zone = $("#chat_zone");   
+    var chat_zone = $("#chat_zone");
     // var chatsock = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + "/chatbot");
     var session_id = getQueryString('userid')
     var session_id = 'userid'
@@ -19,7 +20,7 @@ $(function() {
         'ws://' +
         window.location.host +
         '/ws/chatbot/' +
-         session_id + '_' + getQueryString('userid')+'/'
+        session_id + '_' + getQueryString('userid') + '/'
     );
 
     chatsock.onmessage = function(message) {
@@ -38,6 +39,8 @@ $(function() {
             if (message_val) {
                 // Send the message
                 var message = {
+                    type: 'text',
+                    client_type: 'django',
                     message: message_val
                 };
                 chatsock.send(JSON.stringify(message));
@@ -48,8 +51,7 @@ $(function() {
                     $("<p class='question'></p>").text('Me: ' + message_val)
                 );
             }
-        }
-        catch(err) {
+        } catch (err) {
             console.error(err.message);
         }
 
