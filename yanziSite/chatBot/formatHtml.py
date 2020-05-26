@@ -86,17 +86,16 @@ def format_file(file_name,client_type):
         answer_type = 'image'
     return return_str,answer_type
 
-def save_file(input_message):
+def save_file(input_message,file_name):
     resouece_home = get_resouece_home()
     imgdata = base64.b64decode(input_message.split(';base64,')[1])
     file_type= input_message.split(';base64,')[0].split(":")[-1]
-    if file_type == 'text/plain':
-        file_ext = '.txt'
-    else:
-        file_ext = '.png'
-    file_name = '1' + file_ext
+    # if file_type == 'text/plain':
+    #     file_ext = '.txt'
+    # else:
+    #     file_ext = '.png'
     file_path = os.path.join(resouece_home, file_name)
-    print(file_path)
+
 
     file = open(file_path, 'wb')
     file.write(imgdata)

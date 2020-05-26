@@ -30,21 +30,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # Receive message from WebSocket
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        question = text_data_json['message']
-        questiion_type = text_data_json['type']
-        client_type = text_data_json['client_type']
-        session_id = self.room_name
 
+        text_data_json['session_id'] = self.room_name
         try:
-            answer = ChatbotManager.callBot(
-                {'message': question,
-                 'callback_key': 'list_function',
-                 'session_id': session_id,
-                 'question_type': questiion_type,
-                 'client_type': client_type})
+            answer = ChatbotManager.callBot(text_data_json)
         except:
             answer['message'] = 'error:internal error'
-
+        print(text_data_json,'->',answer)
         # Send message to room group
         await self.channel_layer.group_send(
             self.room_group_name,

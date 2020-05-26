@@ -1,3 +1,4 @@
+
 import logging
 from django.conf import settings
 from django.apps import AppConfig
@@ -5,7 +6,7 @@ import sys
 import os
 import base64
 
-from .formatHtml import format_html,format_file,save_file
+from .formatHtml import format_html, format_file, save_file
 
 # load first script
 chatbotPath = "/".join(settings.BASE_DIR.split('/')[:-1])
@@ -40,33 +41,35 @@ class ChatbotManager(AppConfig):
     def callBot(user_input):
         answer = {}
         if ChatbotManager.bot:
-            print(user_input)
             client_type = user_input['client_type']
-            if user_input['question_type'] == 'text':
+            print(user_input)
+            if user_input['type'] == 'text':
                 question = {'message': user_input['message'],
-                            'callback_key': user_input['callback_key'],
-                            'session_id':  user_input['session_id']}            
+                            'session_id':  user_input['session_id']}
                 answer = ChatbotManager.bot.daemonPredict(question)
 
                 if answer['message'].split(':')[0] == '文件地址':
                     file_path = answer['message'].split(':')[1]
-                    ai_message,ai_message_type = format_file(file_path,client_type)
+                    ai_message, ai_message_type = format_file(
+                        file_path, client_type)
                     answer['message'] = ai_message
-                    answer['answer_type'] = ai_message_type  
-                else:  
-                    answer['answer_type'] = 'text'   
-                    answer['message'] = format_html(answer['message'] ,client_type)
+                    answer['answer_type'] = ai_message_type
+                else:
+                    answer['answer_type'] = 'text'
+                    answer['message'] = format_html(
+                        answer['message'], client_type)
 
-            elif user_input['question_type'] == 'image':
-                save_file(user_input['message'])
+            elif user_input['type'] == 'image' or user_input['type'] == 'file':
+                file_name = (user_input['ext']['filename'])
+                save_file(user_input['message'], file_name)
                 answer['answer_type'] = 'text'
-                answer['message'] = 'image save in resource file.'
-
-            answer['client_type'] = user_input['client_type'] 
+                answer['message'] = '{} saved in resource file.'.format(file_name)
         else:
+            answer['answer_type'] = 'text'
             error_message = 'Error: Bot not initialized!'
             logger.error(error_message)
             answer['message'] = error_message
+        answer['client_type'] = user_input['client_type']  
         return answer
 
 
