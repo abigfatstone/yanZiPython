@@ -6,6 +6,21 @@ from itertools import permutations
 
 class HelloWorld:
 
+    def print_jiechen(self,inUserSaid):
+        stepID = inUserSaid['step_id'] + 1
+        sNumberList = inUserSaid['message']
+        if stepID == 1:
+            returnKey = {'message':"请输入计算阶乘的数字",'step_id': stepID}
+        else:
+            n = int(inUserSaid['message'])
+            tmp=1
+            for i in range(1,n+1):
+                print("tmp={}\tn={}\ti={}\ti*tmp={}".format(tmp,n,i,i*tmp))
+                tmp = i*tmp
+            returnKey = {'message': tmp, 'callback_key': 'list_function'}
+        return {**inUserSaid, **returnKey}    
+
+
     def print_hello_world(self, inUserSaid):
         return_list = []
         return_list.append("they are autism spectrum disorder!!!")
@@ -82,19 +97,26 @@ class HelloWorld:
         # 1 3 3 1
         # 1 4 6 4 1
         # 1 5 10 10 5 1
-        list1 = [1, 1]
-        list2 = []
-        listReturn = ['','1','1 1']
-        for i in range(1, 10):
+        stepID = inUserSaid['step_id'] + 1
+        sNumberList = inUserSaid['message']
+        if stepID == 1:
+            returnKey = {'message':"请输入杨辉三角的数字",'step_id': stepID}
+        else:
+            n = int(inUserSaid['message'])
+            #分解质因数
+            list1 = [1, 1]
             list2 = []
-            list2.append(list1[0])
-            len1 = len(list1)
-            for j in range(0, len1-1):
-                list2.append(list1[j]+list1[j+1])
-            list2.append(list1[-1])
-            list1 = list2
-            listReturn.append(self.num_to_str(list2))
-        returnKey = {'message': '\n'.join(listReturn), 'callback_key': 'list_function'}
+            listReturn = ['','1','1 1']
+            for i in range(1, n+1):
+                list2 = []
+                list2.append(list1[0])
+                len1 = len(list1)
+                for j in range(0, len1-1):
+                    list2.append(list1[j]+list1[j+1])
+                list2.append(list1[-1])
+                list1 = list2
+                listReturn.append(self.num_to_str(list2))
+            returnKey = {'message': '\n'.join(listReturn), 'callback_key': 'list_function'}
         return {**inUserSaid, **returnKey}        
 
     def calc_loan(self, inUserSaid):
@@ -203,4 +225,3 @@ class HelloWorld:
 if __name__ == "__main__":
     helloWorld = HelloWorld()
     ai=helloWorld.split_zys({'callbackKey':'guess_num','step_id':0})
-    print(ai['message'])

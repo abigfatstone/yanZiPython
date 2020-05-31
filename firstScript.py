@@ -62,6 +62,7 @@ class Chatbot:
         fList.append("[14]猜数字")   
         fList.append("[15]打印杨辉三角")
         fList.append("[16]分解质因数")
+        fList.append("[17]计算阶乘")
         fList.append("输入编号启动相应功能")     
         self.functionList ='\n'.join(fList)
 
@@ -95,8 +96,8 @@ class Chatbot:
 
     def daemonPredict(self, inUserInput):
         # print(inUserInput)
-        # print(self.aiReturn)
-        # print("="*20)
+        print(self.aiReturn)
+        print("="*20)
         self.sessionID = inUserInput['session_id']
         inputMessage = inUserInput['message']
         self.aiReturn['message'] = inputMessage
@@ -140,10 +141,14 @@ class Chatbot:
                 self.aiReturn['callback_key'] = 'guess_num'
                 aiReturn = self.helloWorld.guess_num(self.aiReturn)
             elif inputMessage == '15':
+                self.aiReturn['callback_key'] = 'yanghui_delta'
                 aiReturn = self.helloWorld.print_yanghui_deleta(self.aiReturn)
             elif inputMessage == '16':
                 self.aiReturn['callback_key'] = 'split_zys'
                 aiReturn = self.helloWorld.split_zys(self.aiReturn)
+            elif inputMessage == '17':
+                self.aiReturn['callback_key'] = 'print_jiechen'
+                aiReturn = self.helloWorld.print_jiechen(self.aiReturn)                
             else:
                 # 如果不是已知功能列表，则调用聊天程序
                 aiReturn = self.chatAsBackEnd(self.aiReturn)
@@ -159,8 +164,12 @@ class Chatbot:
             aiReturn = self.helloWorld.calc_24(self.aiReturn)
         elif callbackKey == 'guess_num':
             aiReturn = self.helloWorld.guess_num(self.aiReturn)
+        elif callbackKey == 'yanghui_delta':
+            aiReturn = self.helloWorld.print_yanghui_deleta(self.aiReturn)                
         elif callbackKey == 'split_zys':
             aiReturn = self.helloWorld.split_zys(self.aiReturn)    
+        elif callbackKey == 'print_jiechen':
+            aiReturn = self.helloWorld.print_jiechen(self.aiReturn)                
         else:
             # 如果不是已知状态，则调用聊天程序
             aiReturn = self.chatAsBackEnd(self.aiReturn)
