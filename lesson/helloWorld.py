@@ -17,7 +17,7 @@ class HelloWorld:
             for i in range(1,n+1):
                 print("tmp={}\tn={}\ti={}\ti*tmp={}".format(tmp,n,i,i*tmp))
                 tmp = i*tmp
-            returnKey = {'message': tmp, 'callback_key': 'list_function'}
+            returnKey = {'message': str(tmp), 'callback_key': 'list_function'}
         return {**inUserSaid, **returnKey}    
 
 

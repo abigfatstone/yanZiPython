@@ -81,9 +81,9 @@ scp /System/Library/fonts/PingFang.ttc root@host1://System/Library/fonts/
 
 # 启动网页
 export CHATBOT_SECRET_KEY="my-secret-key"
-cd  ~/Documents/GitHub/yanZiPython/botweb/
+cd  ~/Documents/GitHub/yanZiPython/yanziSite/
 python manage.py makemigrations
 python manage.py migrate
 redis-server &  # Launch Redis in background
-python ~/Documents/GitHub/yanZiPython/botweb/manage.py runserver
+python ~/Documents/GitHub/yanZiPython/yanziSite/manage.py runserver
 
