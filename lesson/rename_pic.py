@@ -48,7 +48,6 @@ def get_from_filename(file_path,time_format):
     properties = {'callback':'success','file_path':file_path}
     try:
         create_str = file_path.split('/')[-1].split('.')[0]
-        print(create_str)
         create_time_cn=time.mktime(time.strptime(create_str,time_format))+int(0)*60*60
         create_str_cn = time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(create_time_cn))
         properties['create_time']  = create_str_cn
@@ -82,39 +81,49 @@ def get_from_media(file_path):
     except:
         return {'callback':'failed','file_path':file_path}
 
-test_file = '/doc/PIC_new/2018-07/2018-07-01 105150.mov'
-time_format = '%Y-%m-%d %H%M%S'
-print(get_from_filename(test_file,time_format))
+def rename_pic(folder_name,folder_name_new):
+    i = 0
+    for root, dirs, files in os.walk(folder_name):
+        for f in files:
+            i = i + 1
+            file_name = "{}/{}".format(root, f)
+            file_ext = f.split('.')[-1].lower()
+            properties =  {'callback':'failed'} 
+            if file_ext in[ 'mp4','mov']:
+                properties = get_from_media(file_name)
+            elif file_ext in['jpeg','jpg','png','heic']:
+                properties = get_from_pohto(file_name)
 
-folder_name = "/doc/PIC"
-folder_name_new = "/doc/PIC"
-i = 0
-for root, dirs, files in os.walk(folder_name):
-    for f in files:
-        i = i + 1
-        file_name = "{}/{}".format(root, f)
-        file_ext = f.split('.')[-1].lower()
-        properties =  {'callback':'failed'} 
-        if file_ext in[ 'mp4','mov']:
-            properties = get_from_media(file_name)
-        elif file_ext in['jpeg','jpg','png','heic']:
-            properties = get_from_pohto(file_name)
+            if properties['callback'] == 'failed':
+                time_format = '%Y-%m-%d %H%M%S'
+                properties = get_from_filename(file_name,time_format)
 
-        if properties['callback'] == 'failed':
-            time_format = '%Y-%m-%d %H%M%S'
-            properties = get_from_filename(file_name,time_format)
+            if properties['callback'] == 'failed':
+                time_format = '%Y-%m-%d %H-%M-%S'
+                properties = get_from_filename(file_name,time_format)
 
-        if properties['callback'] == 'failed':
-            time_format = '%Y-%m-%d %H-%M-%S'
-            properties = get_from_filename(file_name,time_format)
+            print(properties)
+            if properties['callback'] == 'success':
+                file_info = properties['create_time']
+                new_folder_name = '{}/{}'.format(folder_name_new,file_info[0:7].replace(':','-'))
+                new_file_name =  '{}-{}.{}'.format(file_info[0:10].replace(':','-'),file_info[11:19].replace(':',''),file_ext)
+                new_file_path = '{}/{}'.format(new_folder_name,new_file_name)
+                os_cmd("mkdir -p " +new_folder_name)                       # 创建路径 
+                os_cmd("mv \"{}\" \"{}\"".format(file_name, new_file_path)) 
+            # exit()
 
-        print(f,properties)
-        if properties['callback'] == 'success':
-            file_info = properties['create_time']
-            new_folder_name = '{}/{}'.format(folder_name_new,file_info[0:7].replace(':','-'))
-            new_file_name =  '{}-{}.{}'.format(file_info[0:10].replace(':','-'),file_info[11:19].replace(':',''),file_ext)
-            new_file_path = '{}/{}'.format(new_folder_name,new_file_name)
-            os_cmd("mkdir -p " +new_folder_name)                       # 创建路径 
-            os_cmd("mv \"{}\" \"{}\"".format(file_name, new_file_path)) 
-        # exit()
+def move_file(folder_name,folder_name_new):
+    i = 0
+    for root, dirs, files in os.walk(folder_name):
+        for f in files:
+            file_name=file_name = "{}/{}".format(root, f)
+            file_name_new="{}/{}".format(folder_name_new,file_name[len(folder_name)+1:])
+            print("mv \"{}\" \"{}\"".format(file_name, file_name_new)) 
 
+# test_file = '/doc/PIC_new/2018-07/2018-07-01 105150.mov'
+# time_format = '%Y-%m-%d %H%M%S'
+# print(get_from_filename(test_file,time_format))
+folder_name = "/Volumes/disk_admin/Cloud/历史相册/未命名文件夹"
+folder_name_new = "/Volumes/disk_admin/Cloud/历史相册"
+
+rename_pic(folder_name,folder_name_new)
