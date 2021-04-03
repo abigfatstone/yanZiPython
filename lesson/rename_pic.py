@@ -3,8 +3,6 @@ import subprocess,time
 import pytz
 import hashlib
 
-
-
 def os_cmd(cmd,is_debug=False):
     if is_debug:
         print(cmd)
@@ -14,11 +12,11 @@ def os_cmd(cmd,is_debug=False):
 def getDocSize(path):
     try:
         size = os.path.getsize(path)
-        return formatSize(size)
+        return size
     except Exception as err:
         print(err)
-
-        
+        return 0
+    
 def get_md5_01(file_path):
   md5 = None
   if os.path.isfile(file_path):
@@ -43,7 +41,6 @@ def get_md5_02(file_path):
   md5 = str(hash_code).lower()
   return md5
  
-
 def get_from_pohto(file_path):
     import exifread 
     #加载 ExifRead 第三方库  https://pypi.org/project/ExifRead/
@@ -154,12 +151,29 @@ def move_file(folder_name,folder_name_new):
         for f in files:
             file_name=file_name = "{}/{}".format(root, f)
             file_name_new="{}/{}".format(folder_name_new,file_name[len(folder_name)+1:])
-            print("mv \"{}\" \"{}\"".format(file_name, file_name_new)) 
+            os_cmd("mv \"{}\" \"{}\"".format(file_name, file_name_new)) 
 
-# test_file = '/doc/PIC_new/2018-07/2018-07-01 105150.mov'
-# time_format = '%Y-%m-%d %H%M%S'
-# print(get_from_filename(test_file,time_format))
-folder_name = "/Volumes/disk_admin/Cloud/历史相册/未命名文件夹"
-folder_name_new = "/Volumes/disk_admin/Cloud/历史相册"
+def get_file_info(folder_name):
+    i = 0
+    file = open('file_info.csv', 'w')
+    for root, dirs, files in os.walk(folder_name):
+        for f in files:
+            file_name=file_name = "{}/{}".format(root, f)
+            file_size = getDocSize(file_name)
+            if file_size < 8*1024*1024:
+                file_md5=get_md5_01(file_name)
+            else:
+                file_md5=get_md5_02(file_name)
+            file_info_str="{}\t{}\t{}\t{}\n".format(root, f,file_size,file_md5)     
+            file.write(file_info_str)
+    file.close()
+if __name__ == '__main__':
 
-rename_pic(folder_name,folder_name_new)
+    # test_file = '/doc/PIC_new/2018-07/2018-07-01 105150.mov'
+    # time_format = '%Y-%m-%d %H%M%S'
+    # print(get_from_filename(test_file,time_format))
+    # folder_name = "/Volumes/disk_admin/Cloud/历史相册/未命名文件夹"
+    # folder_name_new = "/Volumes/disk_admin/Cloud/历史相册"
+
+    # rename_pic(folder_name,folder_name_new)
+    get_file_info("/Users/fat/Desktop/未命名文件夹")

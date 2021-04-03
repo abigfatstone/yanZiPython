@@ -9,3 +9,4 @@ botWeb/dump.rdb
 dump.rdb
 botWeb/db.sqlite3
 botWeb/db.sqlite3
+lesson/file_info.csv
