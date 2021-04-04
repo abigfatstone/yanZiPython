@@ -2,6 +2,7 @@ import os
 import subprocess,time
 import pytz
 import hashlib
+import datetime
 
 def os_cmd(cmd,is_debug=False):
     if is_debug:
@@ -16,7 +17,25 @@ def getDocSize(path):
     except Exception as err:
         print(err)
         return 0
-    
+
+def formatSize(bytes):
+    try:
+        bytes = float(bytes)
+        kb = bytes / 1024
+    except:
+        print("传入的字节格式不对")
+        return "Error"
+
+    if kb >= 1024:
+        M = kb / 1024
+        if M >= 1024:
+            G = M / 1024
+            return "{:.2f}Gb".format(G)
+        else:
+            return "{:.2f}Mb".format(M) 
+    else:
+        return "{:.2f}Kb".format(kb)
+
 def get_md5_01(file_path):
   md5 = None
   if os.path.isfile(file_path):
@@ -154,8 +173,12 @@ def move_file(folder_name,folder_name_new):
             os_cmd("mv \"{}\" \"{}\"".format(file_name, file_name_new)) 
 
 def get_file_info(folder_name):
-    i = 0
-    file = open('file_info.csv', 'w')
+
+    file = open('{}.csv'.format(folder_name.replace(':','_').replace('\\','_').replace("/",'_')), 'w',encoding='utf-8')
+    dir_last = ""
+    cnt_last = 0
+    size_last = 0
+    t0 = datetime.datetime.now()
     for root, dirs, files in os.walk(folder_name):
         for f in files:
             file_name=file_name = "{}/{}".format(root, f)
@@ -164,8 +187,19 @@ def get_file_info(folder_name):
                 file_md5=get_md5_01(file_name)
             else:
                 file_md5=get_md5_02(file_name)
-            file_info_str="{}\t{}\t{}\t{}\n".format(root, f,file_size,file_md5)     
-            file.write(file_info_str)
+            file_info_str="{}\t{}\t{}\t{}".format(root.replace('\\','/'), f,file_size,file_md5)     
+            file.write(file_info_str+'\n')
+            if dir_last != root:
+                dur_last = (datetime.datetime.now() - t0).total_seconds()
+                print("cnt:{:<7d}size:{:>12}\tDur:{:.2f}\t{}".format(cnt_last,formatSize(size_last),dur_last,dir_last,))   
+                cnt_last = 0
+                size_last = 0
+                t0 = datetime.datetime.now()   
+            size_last = size_last + file_size  
+            cnt_last = cnt_last + 1
+            dir_last = root   
+    dur_last = (datetime.datetime.now() - t0).total_seconds()
+    print("cnt:{:<7d}size:{:>12}\tDur:{:.2f}\t{}".format(cnt_last,formatSize(size_last),dur_last,dir_last,))     
     file.close()
 if __name__ == '__main__':
 
@@ -176,4 +210,4 @@ if __name__ == '__main__':
     # folder_name_new = "/Volumes/disk_admin/Cloud/历史相册"
 
     # rename_pic(folder_name,folder_name_new)
-    get_file_info("/Users/fat/Desktop/未命名文件夹")
+    get_file_info("Z:/")
