@@ -168,12 +168,19 @@ def move_file(folder_name,folder_name_new):
     i = 0
     for root, dirs, files in os.walk(folder_name):
         for f in files:
+            i = i + 1
             file_name=file_name = "{}/{}".format(root, f)
             file_name_new="{}/{}".format(folder_name_new,file_name[len(folder_name)+1:])
+            folder_name_target = file_name_new.split(f)[0]
+            os_cmd("mkdir -p \"{}\"".format(folder_name_target))
             os_cmd("mv \"{}\" \"{}\"".format(file_name, file_name_new)) 
+            # print(file_name)
+            if i % 100 == 0:
+                print(i)
+    print(i)                
 
 def get_file_info(folder_name):
-
+    # load data infile '/Users/fat/Desktop/Z__Cloud.csv' into table t_files;
     file = open('{}.csv'.format(folder_name.replace(':','_').replace('\\','_').replace("/",'_')), 'w',encoding='utf-8')
     dir_last = ""
     cnt_last = 0
@@ -210,4 +217,6 @@ if __name__ == '__main__':
     # folder_name_new = "/Volumes/disk_admin/Cloud/历史相册"
 
     # rename_pic(folder_name,folder_name_new)
-    get_file_info("Z:/")
+    # get_file_info("Z:/")
+    move_file('/Volumes/TimeMachine2/Users/Moyuss/Backup_backup/历史相册/来自moyuPhone的相册','/Volumes/TimeMachine2/Users/Moyuss/Backup_backup/历史相册')
+    
